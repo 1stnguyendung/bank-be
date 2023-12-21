@@ -164,16 +164,16 @@ module.exports = {
 
         switch (status) {
             case 'active':
-                html = `<span class="badges badge-success">Hoạt Động</span>`;
+                html = `<span class="badge bg-light-success">Hoạt Động</span>`;
                 break;
             case 'limit':
-                html = `<span class="badges badge-info">Giới Hạn</span>`;
+                html = `<span class="badge bg-light-info">Giới Hạn</span>`;
                 break;
             case 'pending':
-                html = `<span class="badges badge-warning">Tạm Dừng</span>`;
+                html = `<span class="badge bg-light-warning">Tạm Dừng</span>`;
                 break;
             default:
-                html = `<span class="badges badge-danger">Lỗi Số</span>`;
+                html = `<span class="badge bg-light-danger">Lỗi Số</span>`;
                 break;
         }
 
@@ -184,25 +184,25 @@ module.exports = {
 
         switch (status) {
             case 'refreshError':
-                html = `<span class="badges badge-danger">Lỗi Refresh</span>`;
+                html = `<span class="badge bg-light-danger">Lỗi Refresh</span>`;
                 break;
             case 'waitLogin':
-                html = `<span class="badges badge-warning">Đợi Đăng Nhập</span>`;
+                html = `<span class="badge bg-light-warning">Đợi Đăng Nhập</span>`;
                 break;
             case 'errorLogin':
-                html = `<span class="badges badge-danger">Lỗi Đăng Nhập</span>`;
+                html = `<span class="badge bg-light-danger">Lỗi Đăng Nhập</span>`;
                 break;
             case 'active':
-                html = `<span class="badges badge-success">Hoạt Động</span>`;
+                html = `<span class="badge bg-light-success">Hoạt Động</span>`;
                 break;
             case 'waitOTP':
-                html = `<span class="badges badge-warning">Đợi OTP</span>`;
+                html = `<span class="badge bg-light-warning">Đợi OTP</span>`;
                 break;
             case 'waitSend':
-                html = `<span class="badges badge-warning">Đợi Gửi OTP</span>`;
+                html = `<span class="badge bg-light-warning">Đợi Gửi OTP</span>`;
                 break;
             default:
-                html = `<span class="badges badge-danger">Lỗi</span>`;
+                html = `<span class="badge bg-light-danger">Lỗi</span>`;
                 break;
         }
 
@@ -213,55 +213,55 @@ module.exports = {
 
         switch (status) {
             case 'wait':
-                html = `<span class="badges badge-info">Đợi Xử Lý</span>`;
+                html = `<span class="badge bg-light-info">Đợi Xử Lý</span>`;
                 break;
             case 'transfer':
-                html = `<span class="badges badge-secondary">Chuyển Tiền</span>`;
+                html = `<span class="badge bg-light-secondary">Chuyển Tiền</span>`;
                 break;
             case 'recharge':
-                html = `<span class="badges badge-success">Nạp Tiền</span>`;
+                html = `<span class="badge bg-light-success">Nạp Tiền</span>`;
                 break;
             case 'withdraw':
-                html = `<span class="badges badge-success">Rút Tiền</span>`;
+                html = `<span class="badge bg-light-success">Rút Tiền</span>`;
                 break;
             case 'errorComment':
-                html = `<span class="badges badge-warning">Sai Nội Dung</span>`;
+                html = `<span class="badge bg-light-warning">Sai Nội Dung</span>`;
                 break;
             case 'limitRefund':
-                html = `<span class="badges badge-warning">Giới Hạn Hoàn</span>`;
+                html = `<span class="badge bg-light-warning">Giới Hạn Hoàn</span>`;
                 break;
             case 'limitBet':
-                html = `<span class="badges badge-warning">Sai Hạn Mức</span>`;
+                html = `<span class="badge bg-light-warning">Sai Hạn Mức</span>`;
                 break;
             case 'refund':
-                html = `<span class="badges badge-danger">Đã Hoàn Tiền</span>`;
+                html = `<span class="badge bg-light-danger">Đã Hoàn Tiền</span>`;
                 break;
             case 'waitReward':
-                html = `<span class="badges badge-warning">Đợi Trả Thưởng</span>`;
+                html = `<span class="badge bg-light-warning">Đợi Trả Thưởng</span>`;
                 break;
             case 'waitRefund':
-                html = `<span class="badges badge-warning">Đợi Hoàn Tiền</span>`;
+                html = `<span class="badge bg-light-warning">Đợi Hoàn Tiền</span>`;
                 break;
             case 'win':
-                html = `<span class="badges badge-success">Thắng Cược</span>`;
+                html = `<span class="badge bg-light-success">Thắng Cược</span>`;
                 break;
             case 'won':
-                html = `<span class="badges badge-light">Thua Cược</span>`;
+                html = `<span class="badge bg-light-light">Thua Cược</span>`;
                 break;
             case 'errorMoney':
-                html = `<span class="badges badge-warning">Không Đủ Tiền</span>`;
+                html = `<span class="badge bg-light-warning">Không Đủ Tiền</span>`;
                 break;
             case 'limitPhone':
-                html = `<span class="badges badge-danger">Giới Hạn Số</span>`;
+                html = `<span class="badge bg-light-danger">Giới Hạn Số</span>`;
                 break;
             case 'errorPhone':
-                html = `<span class="badges badge-danger">Lỗi Số</span>`;
+                html = `<span class="badge bg-light-danger">Lỗi Số</span>`;
                 break;
             case 'phoneBlock':
-                html = `<span class="badges badge-secondary">Đã Chặn Số</span>`;
+                html = `<span class="badge bg-light-secondary">Đã Chặn Số</span>`;
                 break;
             default:
-                html = `<span class="badges badge-danger">Lỗi</span>`;
+                html = `<span class="badge bg-light-danger">Lỗi</span>`;
                 break;
         }
 

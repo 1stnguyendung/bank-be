@@ -61,4 +61,4 @@ const momoSchema = mongoose.Schema({
     timestamps: true
 })
 
-module.exports = mongoose.model('Momo', momoSchema);
+module.exports = mongoose.model('momo', momoSchema);

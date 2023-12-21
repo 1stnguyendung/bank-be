@@ -1,0 +1,271 @@
+<footer class="pc-footer">
+    <div class="footer-wrapper container-fluid">
+        <div class="row">
+            <div class="col my-1">
+                <p class="m-0">With Love 💖</p>
+            </div>
+            <div class="col-auto my-1">
+                <ul class="list-inline footer-link mb-0">
+                    <li class="list-inline-item"><a href="../index.html">Home</a></li><!-- todo link update -->
+                    <li class="list-inline-item"><a href="https://phoenixcoded.gitbook.io/flat-able-bootstrap/"
+                            target="_blank">Documentation</a></li>
+                    <li class="list-inline-item"><a href="https://phoenixcoded.authordesk.app/"
+                            target="_blank">Support</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</footer>
+<script src="/assets/js/plugins/popper.min.js"></script>
+<script src="/assets/js/plugins/simplebar.min.js"></script>
+<script src="/assets/js/plugins/bootstrap.min.js"></script>
+<script src="/assets/js/fonts/custom-font.js"></script>
+<script src="/assets/js/pcoded.js"></script>
+<script src="/assets/js/plugins/feather.min.js"></script>
+<script src="/assets/js/app.js?ver=1.1"></script>
+
+<script>
+    function getCookie(cName) {
+        const name = cName + "=";
+        const cDecoded = decodeURIComponent(document.cookie); //to be careful
+        const cArr = cDecoded.split('; ');
+        let res;
+        cArr.forEach(val => {
+            if (val.indexOf(name) === 0) res = val.substring(name.length);
+        })
+        return res;
+    }
+
+    function setCookie(cName, cValue, expDays) {
+        let date = new Date();
+        date.setTime(date.getTime() + (expDays * 24 * 60 * 60 * 1000));
+        const expires = "expires=" + date.toUTCString();
+        document.cookie = cName + "=" + cValue + "; " + expires + "; path=/";
+    }
+
+    function change_theme(theme, type) {
+        if (theme === 'layout') {
+            layout_change(type)
+        }
+
+        if (theme === 'default') {
+            layout_change_default()
+        }
+
+        if (theme === 'sidebar') {
+            layout_sidebar_change(type)
+        }
+
+        if (theme === 'header') {
+            layout_header_change(type)
+        }
+
+        if (theme === 'box') {
+            change_box_container(type)
+        }
+
+        if (theme === 'caption') {
+            layout_caption_change(type)
+        }
+
+        if (theme === 'rtl') {
+            layout_rtl_change(type)
+        }
+
+        if (theme === 'preset') {
+            preset_change(type)
+        }
+
+
+        setCookie(theme, type);
+    }
+
+
+</script>
+
+<script>layout_change(getCookie('layout'));</script>
+<script>layout_sidebar_change(getCookie('sidebar'));</script>
+<script>layout_header_change(getCookie('header'));</script>
+<script>change_box_container(getCookie('box'));</script>
+<script>layout_caption_change(getCookie('caption'));</script>
+<script>layout_rtl_change(getCookie('rtl'));</script>
+<script>preset_change(getCookie('preset'));</script>
+
+
+<div class="pct-c-btn">
+    <a href="#" data-bs-toggle="offcanvas" data-bs-target="#offcanvas_pc_layout">
+        <i class="ph-duotone ph-gear-six"></i>
+    </a>
+</div>
+<div class="offcanvas border-0 pct-offcanvas offcanvas-end" tabindex="-1" id="offcanvas_pc_layout">
+    <div class="offcanvas-header">
+        <h5 class="offcanvas-title">Cài đặt</h5>
+        <button type="button" class="btn btn-icon btn-link-danger" data-bs-dismiss="offcanvas" aria-label="Close">
+            <i class="ti ti-x"></i>
+        </button>
+    </div>
+    <div class="pct-body" style="height: calc(100% - 85px)">
+        <div class="offcanvas-body py-0">
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">
+                    <div class="pc-dark">
+                        <h6 class="mb-1">Cài đặt giao điện</h6>
+                        <p class="text-muted text-sm">Chọn chế độ sáng - tối - tự động</p>
+                        <div class="row theme-color theme-layout">
+                            <div class="col-4">
+                                <div class="d-grid">
+                                    <button class="preset-btn btn active" data-value="true"
+                                        onclick="change_theme('layout', 'light');">
+                                        <span class="btn-label">Light</span>
+                                        <span
+                                            class="pc-lay-icon"><span></span><span></span><span></span><span></span></span>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="d-grid"><button class="preset-btn btn" data-value="false"
+                                        onclick="change_theme('layout', 'dark');">
+                                        <span class="btn-label">Dark</span>
+                                        <span
+                                            class="pc-lay-icon"><span></span><span></span><span></span><span></span></span>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="d-grid"><button class="preset-btn btn" data-value="default"
+                                        onclick="change_theme('default', 'default');" data-bs-toggle="tooltip"
+                                        title="Automatically sets the theme based on user's operating system's color scheme."><span
+                                            class="btn-label">Default</span> <span
+                                            class="pc-lay-icon d-flex align-items-center justify-content-center"><i
+                                                class="ph-duotone ph-cpu"></i></span></button></div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li class="list-group-item">
+                    <h6 class="mb-1">Header Theme</h6>
+                    <p class="text-muted text-sm">Choose Header Theme</p>
+                    <div class="row theme-color theme-header-color">
+                        <div class="col-6">
+                            <div class="d-grid"><button class="preset-btn btn active" data-value="true"
+                                    onclick="change_theme('header', 'dark');"><span class="btn-label">Dark</span>
+                                    <span
+                                        class="pc-lay-icon"><span></span><span></span><span></span><span></span></span></button>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="d-grid"><button class="preset-btn btn" data-value="false"
+                                    onclick="change_theme('header', 'light');"><span class="btn-label">Light</span>
+                                    <span
+                                        class="pc-lay-icon"><span></span><span></span><span></span><span></span></span></button>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li class="list-group-item">
+                    <h6 class="mb-1">Accent color</h6>
+                    <p class="text-muted text-sm">Choose your primary theme color</p>
+                    <div class="theme-color preset-color"><a href="#!" class="active" data-value="preset-1"><i
+                                class="ti ti-check"></i></a> <a href="#!" data-value="preset-2"><i
+                                class="ti ti-check"></i></a> <a href="#!" data-value="preset-3"><i
+                                class="ti ti-check"></i></a> <a href="#!" data-value="preset-4"><i
+                                class="ti ti-check"></i></a> <a href="#!" data-value="preset-5"><i
+                                class="ti ti-check"></i></a> <a href="#!" data-value="preset-6"><i
+                                class="ti ti-check"></i></a> <a href="#!" data-value="preset-7"><i
+                                class="ti ti-check"></i></a> <a href="#!" data-value="preset-8"><i
+                                class="ti ti-check"></i></a> <a href="#!" data-value="preset-9"><i
+                                class="ti ti-check"></i></a> <a href="#!" data-value="preset-10"><i
+                                class="ti ti-check"></i></a></div>
+                </li>
+                <li class="list-group-item">
+                    <h6 class="mb-1">Sidebar Theme</h6>
+                    <p class="text-muted text-sm">Choose Sidebar Theme</p>
+                    <div class="row theme-color theme-sidebar-color">
+                        <div class="col-6">
+                            <div class="d-grid"><button class="preset-btn btn" data-value="true"
+                                    onclick="change_theme('sidebar', 'dark');"><span class="btn-label">Dark</span>
+                                    <span
+                                        class="pc-lay-icon"><span></span><span></span><span></span><span></span></span></button>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="d-grid"><button class="preset-btn btn active" data-value="false"
+                                    onclick="change_theme('sidebar', 'light');"><span class="btn-label">Light</span>
+                                    <span
+                                        class="pc-lay-icon"><span></span><span></span><span></span><span></span></span></button>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li class="list-group-item">
+                    <h6 class="mb-1">Sidebar Caption</h6>
+                    <p class="text-muted text-sm">Sidebar Caption Hide/Show</p>
+                    <div class="row theme-color theme-nav-caption">
+                        <div class="col-6">
+                            <div class="d-grid"><button class="preset-btn btn active" data-value="true"
+                                    onclick="change_theme('caption', 'true');"><span class="btn-label">Caption
+                                        Show</span> <span
+                                        class="pc-lay-icon"><span></span><span></span><span><span></span><span></span></span><span></span></span></button>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="d-grid"><button class="preset-btn btn" data-value="false"
+                                    onclick="change_theme('caption', 'false');"><span class="btn-label">Caption
+                                        Hide</span> <span
+                                        class="pc-lay-icon"><span></span><span></span><span><span></span><span></span></span><span></span></span></button>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li class="list-group-item">
+                    <div class="pc-rtl">
+                        <h6 class="mb-1">Theme Layout</h6>
+                        <p class="text-muted text-sm">LTR/RTL</p>
+                        <div class="row theme-color theme-direction">
+                            <div class="col-6">
+                                <div class="d-grid"><button class="preset-btn btn active" data-value="false"
+                                        onclick="change_theme('rtl', 'false');"><span class="btn-label">LTR</span>
+                                        <span
+                                            class="pc-lay-icon"><span></span><span></span><span></span><span></span></span></button>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="d-grid"><button class="preset-btn btn" data-value="true"
+                                        onclick="change_theme('rtl', 'true');"><span class="btn-label">RTL</span>
+                                        <span
+                                            class="pc-lay-icon"><span></span><span></span><span></span><span></span></span></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li class="list-group-item">
+                    <div class="pc-container-width">
+                        <h6 class="mb-1">Layout Width</h6>
+                        <p class="text-muted text-sm">Choose Full or Container Layout</p>
+                        <div class="row theme-color theme-container">
+                            <div class="col-6">
+                                <div class="d-grid"><button class="preset-btn btn active" data-value="false"
+                                        onclick="change_theme('box', 'false')"><span class="btn-label">Full
+                                            Width</span> <span
+                                            class="pc-lay-icon"><span></span><span></span><span></span><span><span></span></span></span></button>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="d-grid"><button class="preset-btn btn" data-value="true"
+                                        onclick="change_theme('box', 'true')"><span class="btn-label">Fixed
+                                            Width</span> <span
+                                            class="pc-lay-icon"><span></span><span></span><span></span><span><span></span></span></span></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li class="list-group-item">
+                    <div class="d-grid"><button class="btn btn-light-danger" id="layoutreset">Reset Layout</button>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

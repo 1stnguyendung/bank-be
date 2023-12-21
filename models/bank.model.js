@@ -7,6 +7,7 @@ const momoSchema = mongoose.Schema({
         required: true,
         unique: true
     },
+    name: String,
     bankType: String,
     username: String,
     password: String,
@@ -30,6 +31,9 @@ const momoSchema = mongoose.Schema({
         type: Number,
         default: 500000
     },
+    accessToken: String,
+    refreshToken: String,
+    description: String,
     loginAt: Date,
     status: {
         type: String,
@@ -40,4 +44,4 @@ const momoSchema = mongoose.Schema({
     timestamps: true
 })
 
-module.exports = mongoose.model('Vietcombank', momoSchema);
+module.exports = mongoose.model('bank', momoSchema);

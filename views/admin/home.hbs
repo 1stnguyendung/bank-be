@@ -1,0 +1,530 @@
+{{>head}}
+
+<body data-pc-preset="preset-1" data-pc-sidebar-theme="dark" data-pc-sidebar-caption="true" data-pc-direction="ltr"
+    data-pc-theme="light">
+    <div class="loader-bg">
+        <div class="pc-loader">
+            <div class="loader-fill"></div>
+        </div>
+    </div>
+    {{>nav}}
+
+    <div class="pc-container">
+        <div class="pc-content"><!-- [ breadcrumb ] start -->
+            <div class="page-header">
+                <div class="page-block">
+                    <div class="row align-items-center justify-content-between">
+                        <div class="col-sm-auto">
+                            <div class="page-header-title">
+                                <h5 class="mb-0">Statistics</h5>
+                            </div>
+                        </div>
+                        <div class="col-sm-auto">
+                            <ul class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="../navigation/index.html"><i
+                                            class="ph-duotone ph-house"></i></a></li>
+                                <li class="breadcrumb-item"><a href="javascript: void(0)">Widget</a></li>
+                                <li class="breadcrumb-item" aria-current="page">Statistics</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div><!-- [ breadcrumb ] end -->
+            <div class="row">
+                <div class="col-xl-3 col-md-6">
+                    <div class="card feed-card card-border-none">
+                        <div class="card-body py-0">
+                            <div class="row">
+                                <div class="col-4 bg-info border-feed"><i
+                                        class="material-icons-two-tone d-block f-46">input</i></div>
+                                <div class="col-8">
+                                    <div class="p-t-25 p-b-25">
+                                        <p class="text-muted m-0">Tổng nhận từ ATM</p>
+                                        <h2 class="f-w-400 m-b-10">2.000.000đ</h2>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-md-6">
+                    <div class="card feed-card card-border-none">
+                        <div class="card-body py-0">
+                            <div class="row">
+                                <div class="col-4 bg-success border-feed"><i
+                                        class="material-icons-two-tone d-block f-46">account_balance_wallet</i></div>
+                                <div class="col-8">
+                                    <div class="p-t-25 p-b-25">
+                                        <p class="text-muted m-0">Tổng trừ từ MOMO</p>
+                                        <h2 class="f-w-400 m-b-10">$6391</h2>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-md-6">
+                    <div class="card feed-card card-border-none">
+                        <div class="card-body py-0">
+                            <div class="row">
+                                <div class="col-4 bg-danger border-feed"><i
+                                        class="material-icons-two-tone d-block f-46">emoji_events</i></div>
+                                <div class="col-8">
+                                    <div class="p-t-25 p-b-25">
+                                        <p class="text-muted m-0"> <span class="text-danger f-w-400">Tổng trừ từ
+                                                Event</span></p>
+                                        <h2 class="f-w-400 m-b-10">3,619</h2>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-md-6">
+                    <div class="card feed-card card-border-none">
+                        <div class="card-body py-0">
+                            <div class="row">
+                                <div class="col-4 bg-warning border-feed"><i
+                                        class="material-icons-two-tone d-block f-46">insert_emoticon</i></div>
+                                <div class="col-8">
+                                    <div class="p-t-25 p-b-25">
+                                        <p class="text-muted m-0">Thành viên mới</p>
+                                        <h2 class="f-w-400 m-b-10">9,276</h2>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 col-xxl-6">
+                    <div class="card statistics-card-1">
+                        <div class="card-body"><img src="../assets/images/widget/img-status-2.svg" alt="img"
+                                class="img-fluid img-bg">
+                            <div class="d-flex align-items-center">
+                                <div class="avtar bg-brand-color-1 text-white me-3"><i
+                                        class="ph-duotone ph-currency-dollar f-26"></i></div>
+                                <div>
+                                    <p class="text-muted mb-0">Thống kê nạp tiền</p>
+                                    <div class="d-flex align-items-end">
+                                        <h2 class="mb-0 f-w-500"><span class="text-muted">$</span> 134.6 <small
+                                                class="text-muted">k</small></h2><span
+                                            class="badge bg-light-success ms-2"><i class="ti ti-chevrons-up"></i>
+                                            55%</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 col-xxl-6">
+                    <div class="card statistics-card-1">
+                        <div class="card-body"><img src="../assets/images/widget/img-status-2.svg" alt="img"
+                                class="img-fluid img-bg">
+                            <div class="d-flex align-items-center">
+                                <div class="avtar bg-brand-color-1 text-white me-3"><i
+                                        class="ph-duotone ph-currency-dollar f-26"></i></div>
+                                <div>
+                                    <p class="text-muted mb-0">Thống kê rút tiền</p>
+                                    <div class="d-flex align-items-end">
+                                        <h2 class="mb-0 f-w-500"><span class="text-muted">$</span> 134.6 <small
+                                                class="text-muted">k</small></h2><span
+                                            class="badge bg-light-success ms-2"><i class="ti ti-chevrons-up"></i>
+                                            55%</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 col-xl-4">
+                    <div class="card balance-card card-border-primary">
+                        <div class="card-header">
+                            <h5>Số dư thành viên</h5>
+                        </div>
+                        <div class="card-body">
+                            <h2>$167.20</h2><button class="btn btn-primary m-t-15 m-b-20">Recharge now</button>
+                            <p class="text-muted f-15">Recharge of next month</p>
+                            <h4 class="text-muted f-18 f-w-400">$167.20</h4>
+                            <div class="progress m-t-30" style="height: 5px">
+                                <div class="progress-bar bg-primary" style="width:60%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 col-xl-4">
+                    <div class="card balance-card card-border-warning">
+                        <div class="card-header">
+                            <h5>Số dư ATM</h5>
+                        </div>
+                        <div class="card-body">
+                            <h2>95</h2><button class="btn btn-warning m-t-15 m-b-20">Make order now</button>
+                            <p class="text-muted f-15">Order of next month</p>
+                            <h4 class="text-muted f-18 f-w-400">1697.95 kg</h4>
+                            <div class="progress m-t-30" style="height: 5px">
+                                <div class="progress-bar bg-warning" style="width:85%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 col-xl-4">
+                    <div class="card balance-card card-border-danger">
+                        <div class="card-header">
+                            <h5>Số dư Momo</h5>
+                        </div>
+                        <div class="card-body">
+                            <h2>19,540 kg</h2><button class="btn btn-danger m-t-15 m-b-20">Payment now</button>
+                            <p class="text-muted f-15">Payment of next month</p>
+                            <h4 class="text-muted f-18 f-w-400">$49,000.20</h4>
+                            <div class="progress m-t-30" style="height: 5px">
+                                <div class="progress-bar bg-danger" style="width:75%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- liveline1-section start -->
+
+
+                <div class="col-xl-3 col-md-6">
+                    <div class="card prod-p-card bg-danger">
+                        <div class="card-body">
+                            <div class="row align-items-center m-b-25">
+                                <div class="col">
+                                    <h6 class="m-b-5 text-white">Doanh thu</h6>
+                                    <h3 class="m-b-0 text-white">$1,783</h3>
+                                </div>
+                                <div class="col-auto"><i
+                                        class="material-icons-two-tone text-white">account_balance_wallet</i></div>
+                            </div>
+                            <p class="m-b-0 text-white"><span class="label label-danger m-r-10">+11%</span>From Previous
+                                Month</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-md-6">
+                    <div class="card prod-p-card bg-primary">
+                        <div class="card-body">
+                            <div class="row align-items-center m-b-25">
+                                <div class="col">
+                                    <h6 class="m-b-5 text-white">Doanh thu hôm qua</h6>
+                                    <h3 class="m-b-0 text-white">15,830</h3>
+                                </div>
+                                <div class="col-auto"><i class="material-icons-two-tone text-white">local_mall</i></div>
+                            </div>
+                            <p class="m-b-0 text-white"><span class="label label-primary m-r-10">+12%</span>From
+                                Previous Month</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-md-6">
+                    <div class="card prod-p-card bg-success">
+                        <div class="card-body">
+                            <div class="row align-items-center m-b-25">
+                                <div class="col">
+                                    <h6 class="m-b-5 text-white">Doanh thu tháng này</h6>
+                                    <h3 class="m-b-0 text-white">$6,780</h3>
+                                </div>
+                                <div class="col-auto"><i class="material-icons-two-tone text-white">monetization_on</i>
+                                </div>
+                            </div>
+                            <p class="m-b-0 text-white"><span class="label label-success m-r-10">+52%</span>From
+                                Previous Month</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-md-6">
+                    <div class="card prod-p-card bg-warning">
+                        <div class="card-body">
+                            <div class="row align-items-center m-b-25">
+                                <div class="col">
+                                    <h6 class="m-b-5 text-white">Doanh thu tháng trước</h6>
+                                    <h3 class="m-b-0 text-white">6,784</h3>
+                                </div>
+                                <div class="col-auto"><i class="material-icons-two-tone text-white">local_offer</i>
+                                </div>
+                            </div>
+                            <p class="m-b-0 text-white"><span class="label label-warning m-r-10">+52%</span>From
+                                Previous Month</p>
+                        </div>
+                    </div>
+                </div><!-- product profit end --><!-- client-section start -->
+                <div class="col-xl-6 col-md-6">
+                    <div class="card Application-list table-card">
+                        <div class="card-header">
+                            <h5>Đơn rút tiền gần đây nhất</h5>
+                        </div>
+                        <div class="card-body p-0">
+                            <div class="table-responsive">
+                                <div class="app-scroll simplebar-scrollable-y" style="height:365px;position:relative;"
+                                    data-simplebar="init">
+                                    <div class="simplebar-wrapper" style="margin: 0px;">
+                                        <div class="simplebar-height-auto-observer-wrapper">
+                                            <div class="simplebar-height-auto-observer"></div>
+                                        </div>
+                                        <div class="simplebar-mask">
+                                            <div class="simplebar-offset" style="right: 0px; bottom: 0px;">
+                                                <div class="simplebar-content-wrapper" tabindex="0" role="region"
+                                                    aria-label="scrollable content"
+                                                    style="height: 100%; overflow: hidden scroll;">
+                                                    <div class="simplebar-content" style="padding: 0px;">
+                                                        <table class="table table-hover m-0">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>Image</th>
+                                                                    <th>Application</th>
+                                                                    <th>Installs</th>
+                                                                    <th>Created</th>
+                                                                    <th>Budget</th>
+                                                                    <th>Status</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td><img class="rounded-circle" style="width:40px;"
+                                                                            src="../assets/images/user/avatar-2.jpg"
+                                                                            alt="activity-user"></td>
+                                                                    <td>
+                                                                        <h6 class="mb-1">Facebook</h6>
+                                                                        <p class="m-0">Apple</p>
+                                                                    </td>
+                                                                    <td>
+                                                                        <p class="mb-1">523.423</p><span
+                                                                            class="text-success m-0">+ 84 Daily</span>
+                                                                    </td>
+                                                                    <td>Feb 11 2017</td>
+                                                                    <td>$ 16,244</td>
+                                                                    <td><a class="badge bg-light-primary f-12"
+                                                                            href="#!">Active</a></td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td><img class="rounded-circle" style="width:40px;"
+                                                                            src="../assets/images/user/avatar-1.jpg"
+                                                                            alt="activity-user"></td>
+                                                                    <td>
+                                                                        <h6 class="mb-1">Twitter</h6>
+                                                                        <p class="m-0">CS Form</p>
+                                                                    </td>
+                                                                    <td>
+                                                                        <p class="mb-1">7.239</p><span
+                                                                            class="text-warning m-0">+ 5 Daily</span>
+                                                                    </td>
+                                                                    <td>Jan 19 2017</td>
+                                                                    <td>$ 3,937</td>
+                                                                    <td><a class="badge bg-light-warning f-12"
+                                                                            href="#!">Not Active</a></td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td><img class="rounded-circle" style="width:40px;"
+                                                                            src="../assets/images/user/avatar-3.jpg"
+                                                                            alt="activity-user"></td>
+                                                                    <td>
+                                                                        <h6 class="mb-1">Instagram</h6>
+                                                                        <p class="m-0">Microsoft</p>
+                                                                    </td>
+                                                                    <td>
+                                                                        <p class="mb-1">5.877</p><span
+                                                                            class="text-success m-0">+ 12 Daily</span>
+                                                                    </td>
+                                                                    <td>Aug 04 2017</td>
+                                                                    <td>$ 28,039</td>
+                                                                    <td><a class="badge bg-light-success f-12"
+                                                                            href="#!">Paused</a></td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td><img class="rounded-circle" style="width:40px;"
+                                                                            src="../assets/images/user/avatar-2.jpg"
+                                                                            alt="activity-user"></td>
+                                                                    <td>
+                                                                        <h6 class="mb-1">Facebook</h6>
+                                                                        <p class="m-0">Apple</p>
+                                                                    </td>
+                                                                    <td>
+                                                                        <p class="mb-1">523.423</p><span
+                                                                            class="text-success m-0">+ 50 Daily</span>
+                                                                    </td>
+                                                                    <td>April 10 2017</td>
+                                                                    <td>$ 16,244</td>
+                                                                    <td><a class="badge bg-light-primary f-12"
+                                                                            href="#!">Active</a></td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td><img class="rounded-circle" style="width:40px;"
+                                                                            src="../assets/images/user/avatar-1.jpg"
+                                                                            alt="activity-user"></td>
+                                                                    <td>
+                                                                        <h6 class="mb-1">Twitter</h6>
+                                                                        <p class="m-0">CS Form</p>
+                                                                    </td>
+                                                                    <td>
+                                                                        <p class="mb-1">7.239</p><span
+                                                                            class="text-warning m-0">+ 5 Daily</span>
+                                                                    </td>
+                                                                    <td>May 20 2018</td>
+                                                                    <td>$ 3,937</td>
+                                                                    <td><a class="badge bg-light-warning f-12"
+                                                                            href="#!">Not Active</a></td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="simplebar-placeholder" style="width: 1594px; height: 395px;"></div>
+                                    </div>
+                                    <div class="simplebar-track simplebar-horizontal" style="visibility: hidden;">
+                                        <div class="simplebar-scrollbar" style="width: 0px; display: none;"></div>
+                                    </div>
+                                    <div class="simplebar-track simplebar-vertical" style="visibility: visible;">
+                                        <div class="simplebar-scrollbar"
+                                            style="height: 337px; transform: translate3d(0px, 0px, 0px); display: block;">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-6 col-md-6">
+                    <div class="card Application-list table-card">
+                        <div class="card-header">
+                            <h5>Đơn nạp tiền gần đây nhất</h5>
+                        </div>
+                        <div class="card-body p-0">
+                            <div class="table-responsive">
+                                <div class="app-scroll simplebar-scrollable-y" style="height:365px;position:relative;"
+                                    data-simplebar="init">
+                                    <div class="simplebar-wrapper" style="margin: 0px;">
+                                        <div class="simplebar-height-auto-observer-wrapper">
+                                            <div class="simplebar-height-auto-observer"></div>
+                                        </div>
+                                        <div class="simplebar-mask">
+                                            <div class="simplebar-offset" style="right: 0px; bottom: 0px;">
+                                                <div class="simplebar-content-wrapper" tabindex="0" role="region"
+                                                    aria-label="scrollable content"
+                                                    style="height: 100%; overflow: hidden scroll;">
+                                                    <div class="simplebar-content" style="padding: 0px;">
+                                                        <table class="table table-hover m-0">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>Image</th>
+                                                                    <th>Application</th>
+                                                                    <th>Installs</th>
+                                                                    <th>Created</th>
+                                                                    <th>Budget</th>
+                                                                    <th>Status</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td><img class="rounded-circle" style="width:40px;"
+                                                                            src="../assets/images/user/avatar-2.jpg"
+                                                                            alt="activity-user"></td>
+                                                                    <td>
+                                                                        <h6 class="mb-1">Facebook</h6>
+                                                                        <p class="m-0">Apple</p>
+                                                                    </td>
+                                                                    <td>
+                                                                        <p class="mb-1">523.423</p><span
+                                                                            class="text-success m-0">+ 84 Daily</span>
+                                                                    </td>
+                                                                    <td>Feb 11 2017</td>
+                                                                    <td>$ 16,244</td>
+                                                                    <td><a class="badge bg-light-primary f-12"
+                                                                            href="#!">Active</a></td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td><img class="rounded-circle" style="width:40px;"
+                                                                            src="../assets/images/user/avatar-1.jpg"
+                                                                            alt="activity-user"></td>
+                                                                    <td>
+                                                                        <h6 class="mb-1">Twitter</h6>
+                                                                        <p class="m-0">CS Form</p>
+                                                                    </td>
+                                                                    <td>
+                                                                        <p class="mb-1">7.239</p><span
+                                                                            class="text-warning m-0">+ 5 Daily</span>
+                                                                    </td>
+                                                                    <td>Jan 19 2017</td>
+                                                                    <td>$ 3,937</td>
+                                                                    <td><a class="badge bg-light-warning f-12"
+                                                                            href="#!">Not Active</a></td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td><img class="rounded-circle" style="width:40px;"
+                                                                            src="../assets/images/user/avatar-3.jpg"
+                                                                            alt="activity-user"></td>
+                                                                    <td>
+                                                                        <h6 class="mb-1">Instagram</h6>
+                                                                        <p class="m-0">Microsoft</p>
+                                                                    </td>
+                                                                    <td>
+                                                                        <p class="mb-1">5.877</p><span
+                                                                            class="text-success m-0">+ 12 Daily</span>
+                                                                    </td>
+                                                                    <td>Aug 04 2017</td>
+                                                                    <td>$ 28,039</td>
+                                                                    <td><a class="badge bg-light-success f-12"
+                                                                            href="#!">Paused</a></td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td><img class="rounded-circle" style="width:40px;"
+                                                                            src="../assets/images/user/avatar-2.jpg"
+                                                                            alt="activity-user"></td>
+                                                                    <td>
+                                                                        <h6 class="mb-1">Facebook</h6>
+                                                                        <p class="m-0">Apple</p>
+                                                                    </td>
+                                                                    <td>
+                                                                        <p class="mb-1">523.423</p><span
+                                                                            class="text-success m-0">+ 50 Daily</span>
+                                                                    </td>
+                                                                    <td>April 10 2017</td>
+                                                                    <td>$ 16,244</td>
+                                                                    <td><a class="badge bg-light-primary f-12"
+                                                                            href="#!">Active</a></td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td><img class="rounded-circle" style="width:40px;"
+                                                                            src="../assets/images/user/avatar-1.jpg"
+                                                                            alt="activity-user"></td>
+                                                                    <td>
+                                                                        <h6 class="mb-1">Twitter</h6>
+                                                                        <p class="m-0">CS Form</p>
+                                                                    </td>
+                                                                    <td>
+                                                                        <p class="mb-1">7.239</p><span
+                                                                            class="text-warning m-0">+ 5 Daily</span>
+                                                                    </td>
+                                                                    <td>May 20 2018</td>
+                                                                    <td>$ 3,937</td>
+                                                                    <td><a class="badge bg-light-warning f-12"
+                                                                            href="#!">Not Active</a></td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="simplebar-placeholder" style="width: 1594px; height: 395px;"></div>
+                                    </div>
+                                    <div class="simplebar-track simplebar-horizontal" style="visibility: hidden;">
+                                        <div class="simplebar-scrollbar" style="width: 0px; display: none;"></div>
+                                    </div>
+                                    <div class="simplebar-track simplebar-vertical" style="visibility: visible;">
+                                        <div class="simplebar-scrollbar"
+                                            style="height: 337px; transform: translate3d(0px, 0px, 0px); display: block;">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {{>foot}}
+</body>
+
+</html>

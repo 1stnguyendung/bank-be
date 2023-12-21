@@ -3,6 +3,7 @@ const axios = require('axios');
 const { v4: uuidv4 } = require("uuid");
 const crypto = require('crypto');
 const moment = require('moment');
+const { assert } = require('console');
 
 const API_KEY = "6b5c02943d6246e9854c52cee641cb2b";
 
@@ -570,7 +571,9 @@ exports.loginMsg = async(phone, pass, pHash, modelId, deviceToken, setupKey) => 
         const sessionKey = result.extra.SESSION_KEY;
         const agentId = result.momoMsg.agentId;
         const requestEncryptKey = result.extra.REQUEST_ENCRYPT_KEY;
-        return { accessToken, sessionKey, agentId, requestEncryptKey };
+        const REFRESH_TOKEN = result.extra.REFRESH_TOKEN;
+        const balance = result.extra.BALANCE;
+        return { accessToken, sessionKey, agentId, requestEncryptKey, balance, REFRESH_TOKEN };
     }
 
 }
@@ -624,4 +627,134 @@ exports.browseTransactions = async(phone, accessToken, agentId, sessionKey, tbid
         return {}
     }
 
+}
+
+exports.sendMoneyMsg = async(phone, password, accessToken, agentId, sessionKey, tbid, sessionKeyTracking, setupKey, requestEncryptKey, receiver, amount, memo) => {
+    const time = Date.now();
+    const checkSumCalculated = checkSum(phone, 'M2MU_INIT', time, setupKey);
+    const clientTime = Date.now();
+  
+    const bodyInit = {
+      "appCode": APP_CODE,
+      "appId": "vn.momo.payment",
+      "appVer": APP_VER,
+      "buildNumber": 3437,
+      "channel": "APP",
+      "cmdId": `${time}000000`,
+      "time": time,
+      "deviceOS": "ios",
+      "errorCode": 0,
+      "errorDesc": "",
+      "extra": {
+        "checkSum": checkSumCalculated
+      },
+      "lang": "vi",
+      "user": phone,
+      "msgType": "M2MU_INIT",
+      "momoMsg": {
+        "tranType": 2018,
+        "tranList": [{
+          "themeUrl": "https://img.mservice.com.vn/app/img/transfer/theme/trasua-750x260.png",
+          "stickers": "",
+          "partnerName": "Tran Van An",
+          "serviceId": "transfer_p2p",
+          "originalAmount": amount,
+          "receiverType": 1,
+          "partnerId": receiver,
+          "serviceCode": "transfer_p2p",
+          "_class": "mservice.backend.entity.msg.M2MUInitMsg",
+          "tranType": 2018,
+          "comment": memo,
+          "moneySource": 1,
+          "partnerCode": "momo",
+          "rowCardId": null,
+          "sourceToken": "SOF-1",
+          "extras": "{\"avatarUrl\":\"\",\"aliasName\":\"\",\"appSendChat\":false,\"stickers\":\"\",\"themeId\":261,\"source\":\"search_p2p\",\"expenseCategory\":\"66\",\"categoryName\":\"Gửi tiền người thân\",\"agentId\":"+`${agentId}`+",\"bankCustomerId\":\"\"}"
+        }],
+        "clientTime": clientTime,
+        "serviceId": "transfer_p2p",
+        "_class": "mservice.backend.entity.msg.M2MUInitMsg",
+        "defaultMoneySource": 1,
+        "sourceToken": "SOF-1",
+        "giftId": "",
+        "useVoucher": 0,
+        "discountCode": null,
+        "prepaidIds": "",
+        "usePrepaid": 0
+      },
+      "pass": ""
+    }
+  
+    const initResponse = await doRequestEncryptWithVSign({
+      phone, authToken: accessToken, sessionKey, tbid, agentId, sessionKeyTracking
+    }, requestEncryptKey, 'https://owa.momo.vn/api/M2MU_INIT', bodyInit, 'M2MU_INIT');
+  
+    console.log(initResponse);
+  
+    if (initResponse.result) {
+      // xác thực giao dịch CK
+  
+      const checkSofInfo = JSON.parse(initResponse.extra.sofInfo);
+      const momoWalletInfo = checkSofInfo.find(a => a.moneySource === 1);
+      if (momoWalletInfo.balance < amount) {
+        console.log('Không đủ số dư để CK MOMO')
+        throw new Error('Không đủ số dư ví để CK MOMO')
+      }
+      const time1 = Date.now();
+      const checkSumCalculated = checkSum(phone, 'M2MU_CONFIRM', time1, setupKey);
+      const idTransaction = initResponse.momoMsg.replyMsgs[0].id;
+      const tranHisMsg = initResponse.momoMsg.replyMsgs[0].tranHisMsg;
+  
+      const bodyConfirm = {
+        user: phone,
+        msgType: 'M2MU_CONFIRM',
+        pass: password,
+        cmdId: `${time1}000000`,
+        lang: 'vi',
+        time: time1,
+        channel: 'APP',
+        appVer: APP_VER,
+        appCode: APP_CODE,
+        deviceOS: 'ios',
+        result: true,
+        errorCode: 0,
+        errorDesc: '',
+        momoMsg: {
+          otpType: 'NA',
+          ipAddress: 'N/A',
+          _class: 'mservice.backend.entity.msg.M2MUConfirmMsg',
+          quantity: 1,
+          idFirstReplyMsg: idTransaction,
+          moneySource: 1,
+          tranHisMsgs: [tranHisMsg],
+          tranType: 2018,
+          ids: [idTransaction],
+          amount,
+          originalAmount: amount,
+          fee: 0,
+          feeCashIn: 0,
+          feeMoMo: 0,
+          cashInAmount: amount,
+          otp: '',
+          extras: '{}',
+        },
+        extra: {
+          checkSum: checkSumCalculated
+        },
+      };
+  
+      console.log(JSON.stringify(bodyConfirm));
+  
+      const confirmResponse = await doRequestEncryptWithVSign({
+        phone, authToken: accessToken, sessionKey, tbid, agentId, sessionKeyTracking,
+      }, requestEncryptKey, 'https://owa.momo.vn/api/M2MU_CONFIRM', bodyConfirm, 'M2MU_CONFIRM');
+  
+      return confirmResponse;
+  
+    } else {
+      console.log('Khỏi tạo ck momo bị lỗi', initResponse.errorDesc);
+  
+    }
+  
+  
 }

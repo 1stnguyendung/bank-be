@@ -1,0 +1,354 @@
+{{>head}}
+
+<body data-pc-preset="preset-1" data-pc-sidebar-theme="dark" data-pc-sidebar-caption="true" data-pc-direction="ltr"
+    data-pc-theme="light">
+    <div class="loader-bg">
+        <div class="pc-loader">
+            <div class="loader-fill"></div>
+        </div>
+    </div>
+    {{>nav}}
+    <div class="pc-container">
+        <div class="pc-content">
+            <div class="page-header">
+                <div class="page-block">
+                    <div class="row align-items-center justify-content-between">
+                        <div class="col-sm-auto">
+                            <div class="page-header-title">
+                                <h5 class="mb-0">{{ title }}</h5>
+                            </div>
+                        </div>
+                        <div class="col-sm-auto">
+                            <ul class="breadcrumb">
+                                <li class="breadcrumb-item">
+                                    <a href="/"><i class="ph-duotone ph-house"></i></a>
+                                </li>
+                                <li class="breadcrumb-item" aria-current="page">{{ title }}</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="card table-card card-border-none user-profile-list">
+                        <form>
+                            <div class="row g-4">
+                                <div class="col-md-3">
+                                    <input class="mb-0 form-control form-control-sm" type="text" placeholder="Tìm kiếm">
+                                </div>
+                                <div class="col-md-3">
+                                    <select name="status" class="mb-3 form-select form-select-sm">
+                                        {{#select status }}
+                                        <option value="">Tất Cả</option>
+                                        <option value="active">Hoạt Động</option>
+                                        <option value="limit">Giới Hạn</option>
+                                        <option value="pending">Tạm Dừng</option>
+                                        <option value="error">Lỗi Số</option>
+                                        {{/select}}
+                                    </select>
+                                </div>
+                                <div class="col-md-3">
+                                    <select name="loginStatus" class="mb-3 form-select form-select-sm">
+                                        {{#select loginStatus }}
+                                        <option value="">Tất Cả</option>
+                                        <option value="refreshError">Lỗi Refresh</option>
+                                        <option value="waitLogin">Đợi Đăng Nhập</option>
+                                        <option value="errorLogin">Lỗi Đăng Nhập</option>
+                                        <option value="active">Hoạt Động</option>
+                                        <option value="waitOTP">Đợi OTP</option>
+                                        <option value="waitSend">Đợi Gửi OTP</option>
+                                        <option value="error">Lỗi</option>
+                                        {{/select}}
+                                    </select>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group mb-3">
+                                        <button class="btn btn-primary btn-sm w-100">
+                                            <i class="fa fa-search" aria-hidden="true"></i> Tìm
+                                            kiếm</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-striped" id="pc-dt-simple">
+                            <thead>
+                                <th>
+                                    <span data-bs-submit="bank" data-bs-action="add">
+                                        <i class="fa fa-plus-circle" aria-hidden="true"></i>
+                                    </span>
+                                </th>
+                                <th>Ngân hàng</th>
+                                <th>Số Tài Khoản</th>
+                                <th>Tên Tài Khoản</th>
+                                <th>Số Dư {{{ tableSort originalUrl.search 'amount' _sort }}}</th>
+                                <th>Cược Min {{{ tableSort originalUrl.search 'betMin' _sort }}}</th>
+                                <th>Cược Max {{{ tableSort originalUrl.search 'betMax' _sort }}}</th>
+                                <th>Giới Hạn Ngày {{{ tableSort originalUrl.search 'limitDay' _sort }}}
+                                </th>
+                                <th>Giới Hạn Tháng {{{ tableSort originalUrl.search 'limitMonth' _sort
+                                    }}}</th>
+                                <th>Trạng Thái {{{ tableSort originalUrl.search 'status' _sort }}}</th>
+                                </th>
+                                <th>Mô Tả</th>
+                                <th>Chuyển Ngày</th>
+                                <th>Nhận Ngày</th>
+                                <th>Chuyển Tháng</th>
+                                <th>Nhận Tháng</th>
+                                
+                                <th>Cập Nhập {{{ tableSort originalUrl.search 'updatedAt' _sort }}}
+                                </th>
+                                <th>Thời Gian {{{ tableSort originalUrl.search 'createdAt' _sort }}}
+                                </th>
+                            </thead>
+                            <tbody>
+                                {{#each list}}
+                                <tr data-index="{{ this._id }}">
+                                    <td>
+                                        <div class="d-flex gap-2">
+                                            <span class="text-danger action-more" data-icon-action="delete"
+                                                data-id="{{ this._id }}" data-bs-toggle="tooltip"
+                                                data-bs-placement="top" data-bs-original-title="Xóa">
+                                                <i class="ti ti-trash f-18" aria-hidden="true"></i>
+                                            </span>
+                                            <span class="text-success action-more" data-icon-action="balance"
+                                                data-id="{{ this.accountNumber }}" data-bs-toggle="tooltip"
+                                                data-bs-placement="top" data-bs-original-title="Lấy số dư">
+                                                <i class="ti ti-credit-card f-18" aria-hidden="true"></i>
+                                            </span>
+                                        </div>
+                                    </td>
+                                    <td>{{ this.bankType }}</td>
+                                    <td>{{ this.accountNumber }}</td>
+                                    <td>{{ this.name }}</td>
+                                    <td class="amount">{{ numberFormat this.amount }}</td>
+                                    <td>{{ numberFormat this.betMin }}</td>
+                                    <td>{{ numberFormat this.betMax }}</td>
+                                    <td>{{ numberFormat this.limitDay }}</td>
+                                    <td>{{ numberFormat this.limitMonth }}</td>
+                                    <td>{{{ momoStatus this.status }}}</td>
+                                    <td>
+                                        <textarea style="width: 100px;" class="form-control">{{ this.description }}</textarea>
+                                    </td>
+                                    <td>{{ numberFormat this.amountDay }}đ</td>
+                                    <td>{{ numberFormat this.receiptDay }}đ</td>
+                                    <td>{{ numberFormat this.amountMonth }}đ</td>
+                                    <td>{{ numberFormat this.receiptMonth }}đ</td>
+                                    <td>{{ formatDate this.updatedAt 'HH:mm:ss DD-MM-YYYY'}}</td>
+                                    <td>{{ formatDate this.createdAt 'HH:mm:ss DD-MM-YYYY'}}</td>
+                                </tr>
+                                {{else}}
+                                <tr>
+                                    <td colspan="24">
+                                        <div class="dm-empty text-center">
+                                            <div class="dm-empty__image">
+                                                <img src="/assets/images/1.png" alt="Rỗng">
+                                            </div>
+                                            <div class="dm-empty__text">
+                                                <p class="">Không có dữ liệu !</p>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                {{/each}}
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="datatable-bottom">
+                        <div class="col-md-2">
+                            <select name="perPage" class="mb-3 form-select form-select-sm"
+                                data-query="{{ checkQuery originalUrl.search 'perPage' }}">
+                                {{#select perPage }}
+                                <option value="10">10/page</option>
+                                <option value="20">20/page</option>
+                                <option value="40">40/page</option>
+                                <option value="60">60/page</option>
+                                <option value="100">100/page</option>
+                                <option value="200">200/page</option>
+                                <option value="500">500/page</option>
+                                {{/select}}
+                            </select>
+                            </select>
+                        </div>
+                        <nav class="datatable-pagination">
+                            <ul class="datatable-pagination-list">
+                                <li class="dm-pagination__item">
+                                    {{#paginate pagination type="previous"}}
+                                    <a href="{{ baseURL }}?{{#if query }}{{ query }}&page={{n}}{{else}}page={{n}}{{/if}}"
+                                        class="datatable-pagination-list-item datatable-hidden datatable-{{#if disabled}}disabled{{/if}}">
+                                        <span class="ti ti-arrow-left"></span>
+                                    </a>
+                                    {{/paginate}}
+                                    {{#paginate pagination type="middle" limit=pagination.limit}}
+                                    <a href="{{ baseURL }}?{{#if query }}{{ query }}&page={{n}}{{else}}page={{n}}{{/if}}"
+                                        class="datatable-pagination-list-item datatable-{{#if active}}active{{/if}}"><span
+                                            class="datatable-pagination-list-item-link">{{n}}</span>
+                                    </a>
+                                    {{/paginate}}
+                                    {{#paginate pagination type="next"}}
+                                    <a href="{{ baseURL }}?{{#if query }}{{ query }}&page={{n}}{{else}}page={{n}}{{/if}}"
+                                        class="datatable-pagination-list-item datatable-hidden datatable-{{#if disabled}}disabled{{/if}}">
+                                        <span class="ti ti-arrow-right"></span>
+                                    </a>
+                                    {{/paginate}}
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" data-bs-modal="bank-add" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Thêm Bank</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form action="#" method="post" id="formAdd">
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="" class="mb-2">Loại ngân hàng</label>
+                            <select name="bankType" class="mb-3 form-select form-select-sm">
+                                <option value="VCB">Vietcombank</option>
+                                <option value="SEA">SeaBank</option>
+                                <option value="ACB">ACB</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="mb-2">Địa chỉ ip</label>
+                            <input type="text" name="ipAddress" class="form-control" placeholder="Nhập địa chỉ ip...">
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="mb-2">Tài khoản</label>
+                            <input type="text" name="username" class="form-control" placeholder="Nhập tài khoản...">
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="mb-2">Mật Khẩu</label>
+                            <input type="password" name="password" class="form-control" placeholder="Nhập mật khẩu">
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="mb-2">Số tài khoản</label>
+                            <input type="text" name="accountNumber" class="form-control"
+                                placeholder="Nhập số tài khoản...">
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="mb-2">Chủ tài khoản</label>
+                            <input type="text" name="name" class="form-control" placeholder="Chủ tài khoản">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary lh-1" data-bs-dismiss="modal">Đóng</button>
+                        <button data-btn-action="add" type="submit"
+                            class="btn btn-primary lh-1 action-add ">Thêm</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    {{>foot}}
+
+    <script>
+
+        let urlDoamin = '{{urlCurl}}';
+
+        $('body').on('click', '.action-more', function (e) {
+            let _this = $(this);
+
+            console.log(_this);
+            let action = _this.data('icon-action');
+            let id = _this.data('id');
+
+            switch (action) {
+                case 'balance':
+                    _this.prop('disabled', true);
+
+                    axios.post(urlDoamin + '/bank/balance', { accountNumber: id })
+                        .then((result) => {
+                            let response = result.data;
+                            response.status ? swal('Thông Báo', response.message, 'success') && _this.parent().parent().parent().find('td.amount').html(`${Intl.NumberFormat('en-US').format(response.balance)}`) : swal('Thông Báo', response.message, 'error');
+                        })
+                        .catch(err => swal('Thông Báo', `Có lỗi xảy ra ${err.message || err}`, 'warning'))
+                        .finally(() => _this.prop('disabled', false))
+                    break;
+                case 'delete':
+                    Swal.fire({
+                        icon: 'info',
+                        title: "Bạn chắc chắn muốn xóa #" + id + ' không?',
+                        showDenyButton: true,
+                        confirmButtonText: "Đồng ý",
+                        denyButtonText: "Đóng"
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+
+                            let config = {
+                                method: 'post',
+                                maxBodyLength: Infinity,
+                                url: urlDoamin + '/bank/' + action,
+                                headers: {
+                                    'Content-Type': 'application/json'
+                                },
+                                data: {
+                                    id: id
+                                }
+                            };
+
+                            axios.request(config)
+                                .then((response) => {
+                                    response.status ? swal('Thông báo', response.message, 'success') && setTimeout(() => window.location.reload(), 1500) : swal('Thông báo', response.message, 'error');
+                                })
+                                .catch((err) => {
+                                    swal('Thông Báo', err.message || err, 'error');
+
+                                });
+
+                        } else if (result.isDenied) {
+                            Swal.fire("Đã hủy thao tác", "", "info");
+                        }
+                    });
+                    break;
+                default:
+                    swal('Thông Báo', 'Thao tác không hợp lệ!', 'warning');
+                    break;
+            }
+        })
+
+        $('body').on('submit', '#formAdd', function (e) {
+            e.preventDefault();
+            let action = $('.action-add').data('btn-action');
+            let data = $(this).serialize();
+
+            console.log(action);
+
+            $('.action-add').html(`<span class="spinner-border spinner-border-sm" role="status"></span> Đang xử lý`).prop('disabled', true);
+
+            axios.post(urlDoamin + `/bank/${action}`, data)
+                .then((result) => {
+                    let res = result.data;
+
+                    $('.action-add').html(action == 'otp' ? (res.success ? 'Xác Nhận' : 'Thêm') : (action == 'confirm' ? (res.success ? 'Đăng Nhập' : 'Xác Nhận') : 'Thêm')).prop('disabled', false);
+
+                    switch (action) {
+                        case 'get-otp':
+                            res.status ? swal('Thông báo', res.message, 'success') && $('.action-add').data('btn-action', 'login') : swal('Thông báo', res.message, 'error');
+                            break;
+                        case 'login':
+                            res.status ? swal('Thông báo', res.message, 'success') && setTimeout(() => window.location.reload(), 1500) : swal('Thông báo', res.message, 'error');
+                            break;
+                        case 'add':
+                            res.status ? swal('Thông báo', res.message, 'success') && setTimeout(() => window.location.reload(), 1500) : swal('Thông báo', res.message, 'error');
+                            break;
+                    }
+                })
+                .catch((err) => {
+                    swal('Thông Báo', err.message || err, 'error');
+                })
+        })
+    </script>
+</body>
+
+</html>

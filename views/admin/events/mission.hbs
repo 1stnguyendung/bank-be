@@ -1,0 +1,109 @@
+{{>head}}
+
+<body data-pc-preset="preset-1" data-pc-sidebar-theme="dark" data-pc-sidebar-caption="true" data-pc-direction="ltr"
+    data-pc-theme="light">
+    <div class="loader-bg">
+        <div class="pc-loader">
+            <div class="loader-fill"></div>
+        </div>
+    </div>
+    {{>nav}}
+    <div class="pc-container">
+        <div class="pc-content"><!-- [ breadcrumb ] start -->
+            <div class="page-header">
+                <div class="page-block">
+                    <div class="row align-items-center justify-content-between">
+                        <div class="col-sm-auto">
+                            <div class="page-header-title">
+                                <h5 class="mb-0">Cài đặt nhiệm vụ ngày</h5>
+                            </div>
+                        </div>
+                        <div class="col-sm-auto">
+                            <ul class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="../navigation/index.html"><i
+                                            class="ph-duotone ph-house"></i></a></li>
+                                <li class="breadcrumb-item"><a href="javascript: void(0)">EVENT</a></li>
+                                <li class="breadcrumb-item" aria-current="page">Cài đặt nhiệm vụ ngày</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div><!-- [ breadcrumb ] end --><!-- [ Main Content ] start -->
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5>Nhiệm vụ ngày</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <form>
+                                        <div class="table-responsive">
+                                            <table class="table">
+                                                <thead>
+                                                    <th>
+                                                        <span data-row="add">
+                                                            <i class="fa fa-plus-circle" aria-hidden="true"></i>
+                                                        </span>
+                                                    </th>
+                                                    <th>Điều kiện</th>
+                                                    <th>Phần thưởng</th>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>1</td>
+                                                        <td>
+                                                            <input type="text" class="form-control" value="1000000">
+                                                        </td>
+                                                        <td>
+                                                            <input type="text" class="form-control" value="1000000">
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>2</td>
+                                                        <td>
+                                                            <input type="text" class="form-control" value="1000000">
+                                                        </td>
+                                                        <td>
+                                                            <input type="text" class="form-control" value="1000000">
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>3</td>
+                                                        <td>
+                                                            <input type="text" class="form-control" value="1000000">
+                                                        </td>
+                                                        <td>
+                                                            <input type="text" class="form-control" value="1000000">
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+
+                                        <button type="submit" class="btn btn-primary mb-4">Submit</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{>foot}}
+</body>
+<script>
+    var $TABLE = $('#table');
+    var $BTN = $('#export-btn');
+    $('.table-add').click(function () {
+        var $clone = $TABLE.find('tr.hide').clone(true).removeClass('hide table-line');
+        $TABLE.find('table').append($clone + true);
+    });
+
+    $('body').on('click', 'span[data-row="add"]>span', function (e) {
+    }
+</script>
+
+</html>

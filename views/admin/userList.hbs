@@ -1,0 +1,431 @@
+{{>head}}
+
+<body data-pc-preset="preset-1" data-pc-sidebar-theme="dark" data-pc-sidebar-caption="true" data-pc-direction="ltr"
+    data-pc-theme="light">
+    <div class="loader-bg">
+        <div class="pc-loader">
+            <div class="loader-fill"></div>
+        </div>
+    </div>
+    {{>nav}}
+    <div class="pc-container">
+        <div class="pc-content"><!-- [ breadcrumb ] start -->
+            <div class="page-header">
+                <div class="page-block">
+                    <div class="row align-items-center justify-content-between">
+                        <div class="col-sm-auto">
+                            <div class="page-header-title">
+                                <h5 class="mb-0">Quản lý thành viên</h5>
+                            </div>
+                        </div>
+                        <div class="col-sm-auto">
+                            <ul class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="../navigation/index.html"><i
+                                            class="ph-duotone ph-house"></i></a></li>
+                                <li class="breadcrumb-item"><a href="javascript: void(0)">User</a></li>
+                                <li class="breadcrumb-item" aria-current="page">Thành viên hệ thống</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div><!-- [ breadcrumb ] end --><!-- [ Main Content ] start -->
+            <div class="row"><!-- [ sample-page ] start -->
+                <div class="col-sm-12">
+                    <div class="card table-card">
+
+                        <div class="card-body table-card">
+                            <div class="datatable-wrapper datatable-loading no-footer searchable fixed-columns">
+                                <div class="datatable-top">
+                                    <div class="datatable-dropdown">
+                                        <label>
+                                            <select class="datatable-selector">
+                                                <option value="5" selected="">5</option>
+                                                <option value="10">10</option>
+                                                <option value="15">15</option>
+                                                <option value="20">20</option>
+                                                <option value="25">25</option>
+                                            </select> entries per page
+                                        </label>
+                                    </div>
+                                    <div class="datatable-search">
+                                        <input class="datatable-input" placeholder="Search..." type="search"
+                                            title="Search within table" aria-controls="pc-dt-simple">
+                                    </div>
+                                </div>
+                                <div class="datatable-container">
+                                    <table class="table tbl-product datatable-table" id="pc-dt-simple">
+                                        <thead>
+                                            <tr>
+                                                <th style="width: 4.717566728739913%;">#</th>
+                                                <th style="width: 31.036623215394165%;">NAME</th>
+                                                <th style="width: 13.03538175046555%;">ORGANIZATION</th>
+                                                <th style="width: 24.14649286157666%;">TEAM LEADER</th>
+                                                <th style="width: 17.442582247051522%;">MEMBERS</th>
+                                                <th style="width: 9.62135319677219%;">LOCATION</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr data-index="0">
+                                                <td>1</td>
+                                                <td>
+                                                    <div class="row">
+                                                        <div class="col-auto ps-0">
+                                                            <div class="avtar avtar-s btn-light-primary"><i
+                                                                    class="ph-duotone ph-paint-brush f-18"></i></div>
+                                                        </div>
+                                                        <div class="col">
+                                                            <h6 class="mb-1">Design</h6><a
+                                                                class="text-muted f-12 text-hover-primary"
+                                                                href="mailto:demo@mail.com">Carson_Darrin@domain.com</a>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td><a class="text-muted text-hover-primary" href="#">SR.Pvt.Ltd</a>
+                                                </td>
+                                                <td>
+                                                    <div class="row align-items-center">
+                                                        <div class="col-auto ps-0"><img
+                                                                src="../assets/images/user/avatar-2.jpg"
+                                                                alt="user-image" class="wid-40 rounded"></div>
+                                                        <div class="col">
+                                                            <h6 class="mb-0">Carson Darrin</h6>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="user-group"><img
+                                                            src="../assets/images/user/avatar-4.jpg" alt="user-image"
+                                                            class="avtar" data-bs-toggle="tooltip"
+                                                            data-bs-title="John Doe"> <img
+                                                            src="../assets/images/user/avatar-6.jpg" alt="user-image"
+                                                            class="avtar" data-bs-toggle="tooltip"
+                                                            data-bs-title="Keefs"> <img
+                                                            src="../assets/images/user/avatar-7.jpg" alt="user-image"
+                                                            class="avtar" data-bs-toggle="tooltip"
+                                                            data-bs-title="Lazaro"> <img
+                                                            src="../assets/images/user/avatar-8.jpg" alt="user-image"
+                                                            class="avtar" data-bs-toggle="tooltip"
+                                                            data-bs-title="Adeline"> <span
+                                                            class="avtar rounded-circle bg-light-primary text-primary">+1</span>
+                                                    </div>
+                                                </td>
+                                                <td><span>India</span>
+                                                    <div class="prod-action-links">
+                                                        <ul class="list-inline me-auto mb-0">
+                                                            <li class="list-inline-item align-bottom"
+                                                                data-bs-toggle="tooltip" aria-label="View"
+                                                                data-bs-original-title="View"><a href="#"
+                                                                    class="avtar avtar-xs btn-link-warning btn-pc-default"
+                                                                    data-bs-toggle="offcanvas"
+                                                                    data-bs-target="#productOffcanvas"><i
+                                                                        class="ti ti-eye f-18"></i></a></li>
+                                                            <li class="list-inline-item align-bottom"
+                                                                data-bs-toggle="tooltip" aria-label="Edit"
+                                                                data-bs-original-title="Edit"><a href="#!"
+                                                                    class="avtar avtar-xs btn-link-success btn-pc-default"><i
+                                                                        class="ti ti-edit-circle f-18"></i></a></li>
+                                                            <li class="list-inline-item align-bottom"
+                                                                data-bs-toggle="tooltip" aria-label="Delete"
+                                                                data-bs-original-title="Delete"><a href="#"
+                                                                    class="avtar avtar-xs btn-link-danger btn-pc-default"><i
+                                                                        class="ti ti-trash f-18"></i></a></li>
+                                                        </ul>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr data-index="1">
+                                                <td>2</td>
+                                                <td>
+                                                    <div class="row">
+                                                        <div class="col-auto ps-0">
+                                                            <div class="avtar avtar-s btn-light-success"><i
+                                                                    class="ph-duotone ph-buildings f-18"></i></div>
+                                                        </div>
+                                                        <div class="col">
+                                                            <h6 class="mb-1">Managment</h6><a
+                                                                class="text-muted f-12 text-hover-primary"
+                                                                href="mailto:demo@mail.com">John_Doe@domain.com</a>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td><a class="text-muted text-hover-primary" href="#">SMT.Pvt.Ltd</a>
+                                                </td>
+                                                <td>
+                                                    <div class="row align-items-center">
+                                                        <div class="col-auto ps-0"><img
+                                                                src="../assets/images/user/avatar-8.jpg"
+                                                                alt="user-image" class="wid-40 rounded"></div>
+                                                        <div class="col">
+                                                            <h6 class="mb-0">John Doe</h6>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="user-group"><img
+                                                            src="../assets/images/user/avatar-1.jpg" alt="user-image"
+                                                            class="avtar" data-bs-toggle="tooltip"
+                                                            data-bs-title="Carson Darrin"> <img
+                                                            src="../assets/images/user/avatar-5.jpg" alt="user-image"
+                                                            class="avtar" data-bs-toggle="tooltip"
+                                                            data-bs-title="Lazaro"> <img
+                                                            src="../assets/images/user/avatar-3.jpg" alt="user-image"
+                                                            class="avtar" data-bs-toggle="tooltip"
+                                                            data-bs-title="Adeline"> <img
+                                                            src="../assets/images/user/avatar-4.jpg" alt="user-image"
+                                                            class="avtar" data-bs-toggle="tooltip"
+                                                            data-bs-title="Keefs"> <span
+                                                            class="avtar rounded-circle bg-light-primary text-primary">+5</span>
+                                                    </div>
+                                                </td>
+                                                <td><span>Indonasia</span>
+                                                    <div class="prod-action-links">
+                                                        <ul class="list-inline me-auto mb-0">
+                                                            <li class="list-inline-item align-bottom"
+                                                                data-bs-toggle="tooltip" aria-label="View"
+                                                                data-bs-original-title="View"><a href="#"
+                                                                    class="avtar avtar-xs btn-link-warning btn-pc-default"
+                                                                    data-bs-toggle="offcanvas"
+                                                                    data-bs-target="#productOffcanvas"><i
+                                                                        class="ti ti-eye f-18"></i></a></li>
+                                                            <li class="list-inline-item align-bottom"
+                                                                data-bs-toggle="tooltip" aria-label="Edit"
+                                                                data-bs-original-title="Edit"><a href="#!"
+                                                                    class="avtar avtar-xs btn-link-success btn-pc-default"><i
+                                                                        class="ti ti-edit-circle f-18"></i></a></li>
+                                                            <li class="list-inline-item align-bottom"
+                                                                data-bs-toggle="tooltip" aria-label="Delete"
+                                                                data-bs-original-title="Delete"><a href="#"
+                                                                    class="avtar avtar-xs btn-link-danger btn-pc-default"><i
+                                                                        class="ti ti-trash f-18"></i></a></li>
+                                                        </ul>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr data-index="2">
+                                                <td>3</td>
+                                                <td>
+                                                    <div class="row">
+                                                        <div class="col-auto ps-0">
+                                                            <div class="avtar avtar-s btn-light-warning"><i
+                                                                    class="ph-duotone ph-devices f-18"></i></div>
+                                                        </div>
+                                                        <div class="col">
+                                                            <h6 class="mb-1">Production</h6><a
+                                                                class="text-muted f-12 text-hover-primary"
+                                                                href="mailto:demo@mail.com">Adeline@domain.com</a>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td><a class="text-muted text-hover-primary" href="#">JCBK.Pvt.Ltd</a>
+                                                </td>
+                                                <td>
+                                                    <div class="row align-items-center">
+                                                        <div class="col-auto ps-0"><img
+                                                                src="../assets/images/user/avatar-3.jpg"
+                                                                alt="user-image" class="wid-40 rounded"></div>
+                                                        <div class="col">
+                                                            <h6 class="mb-0">Adeline</h6>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="user-group"><img
+                                                            src="../assets/images/user/avatar-6.jpg" alt="user-image"
+                                                            class="avtar" data-bs-toggle="tooltip"
+                                                            data-bs-title="Keefs"> <img
+                                                            src="../assets/images/user/avatar-4.jpg" alt="user-image"
+                                                            class="avtar" data-bs-toggle="tooltip"
+                                                            data-bs-title="John Doe"> <img
+                                                            src="../assets/images/user/avatar-1.jpg" alt="user-image"
+                                                            class="avtar" data-bs-toggle="tooltip"
+                                                            data-bs-title="Carson Darrin"> <img
+                                                            src="../assets/images/user/avatar-7.jpg" alt="user-image"
+                                                            class="avtar" data-bs-toggle="tooltip"
+                                                            data-bs-title="Lazaro"></div>
+                                                </td>
+                                                <td><span>Malaysia</span>
+                                                    <div class="prod-action-links">
+                                                        <ul class="list-inline me-auto mb-0">
+                                                            <li class="list-inline-item align-bottom"
+                                                                data-bs-toggle="tooltip" aria-label="View"
+                                                                data-bs-original-title="View"><a href="#"
+                                                                    class="avtar avtar-xs btn-link-warning btn-pc-default"
+                                                                    data-bs-toggle="offcanvas"
+                                                                    data-bs-target="#productOffcanvas"><i
+                                                                        class="ti ti-eye f-18"></i></a></li>
+                                                            <li class="list-inline-item align-bottom"
+                                                                data-bs-toggle="tooltip" aria-label="Edit"
+                                                                data-bs-original-title="Edit"><a href="#!"
+                                                                    class="avtar avtar-xs btn-link-success btn-pc-default"><i
+                                                                        class="ti ti-edit-circle f-18"></i></a></li>
+                                                            <li class="list-inline-item align-bottom"
+                                                                data-bs-toggle="tooltip" aria-label="Delete"
+                                                                data-bs-original-title="Delete"><a href="#"
+                                                                    class="avtar avtar-xs btn-link-danger btn-pc-default"><i
+                                                                        class="ti ti-trash f-18"></i></a></li>
+                                                        </ul>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr data-index="3">
+                                                <td>4</td>
+                                                <td>
+                                                    <div class="row">
+                                                        <div class="col-auto ps-0">
+                                                            <div class="avtar avtar-s btn-light-danger"><i
+                                                                    class="ph-duotone ph-gear-fine f-18"></i></div>
+                                                        </div>
+                                                        <div class="col">
+                                                            <h6 class="mb-1">Service</h6><a
+                                                                class="text-muted f-12 text-hover-primary"
+                                                                href="mailto:demo@mail.com">Lazaro@domain.com</a>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td><a class="text-muted text-hover-primary" href="#">DDMS.Pvt.Ltd</a>
+                                                </td>
+                                                <td>
+                                                    <div class="row align-items-center">
+                                                        <div class="col-auto ps-0"><img
+                                                                src="../assets/images/user/avatar-6.jpg"
+                                                                alt="user-image" class="wid-40 rounded"></div>
+                                                        <div class="col">
+                                                            <h6 class="mb-0">Lazaro</h6>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="user-group"><img
+                                                            src="../assets/images/user/avatar-7.jpg" alt="user-image"
+                                                            class="avtar" data-bs-toggle="tooltip"
+                                                            data-bs-title="Carson Darrin"> <img
+                                                            src="../assets/images/user/avatar-9.jpg" alt="user-image"
+                                                            class="avtar" data-bs-toggle="tooltip"
+                                                            data-bs-title="Adeline"> <img
+                                                            src="../assets/images/user/avatar-1.jpg" alt="user-image"
+                                                            class="avtar" data-bs-toggle="tooltip"
+                                                            data-bs-title="John Doe"></div>
+                                                </td>
+                                                <td><span>Australia</span>
+                                                    <div class="prod-action-links">
+                                                        <ul class="list-inline me-auto mb-0">
+                                                            <li class="list-inline-item align-bottom"
+                                                                data-bs-toggle="tooltip" aria-label="View"
+                                                                data-bs-original-title="View"><a href="#"
+                                                                    class="avtar avtar-xs btn-link-warning btn-pc-default"
+                                                                    data-bs-toggle="offcanvas"
+                                                                    data-bs-target="#productOffcanvas"><i
+                                                                        class="ti ti-eye f-18"></i></a></li>
+                                                            <li class="list-inline-item align-bottom"
+                                                                data-bs-toggle="tooltip" aria-label="Edit"
+                                                                data-bs-original-title="Edit"><a href="#!"
+                                                                    class="avtar avtar-xs btn-link-success btn-pc-default"><i
+                                                                        class="ti ti-edit-circle f-18"></i></a></li>
+                                                            <li class="list-inline-item align-bottom"
+                                                                data-bs-toggle="tooltip" aria-label="Delete"
+                                                                data-bs-original-title="Delete"><a href="#"
+                                                                    class="avtar avtar-xs btn-link-danger btn-pc-default"><i
+                                                                        class="ti ti-trash f-18"></i></a></li>
+                                                        </ul>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr data-index="4">
+                                                <td>5</td>
+                                                <td>
+                                                    <div class="row">
+                                                        <div class="col-auto ps-0">
+                                                            <div class="avtar avtar-s btn-light-primary"><i
+                                                                    class="ph-duotone ph-paint-brush f-18"></i></div>
+                                                        </div>
+                                                        <div class="col">
+                                                            <h6 class="mb-1">Design</h6><a
+                                                                class="text-muted f-12 text-hover-primary"
+                                                                href="mailto:demo@mail.com">Carson_Darrin@domain.com</a>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td><a class="text-muted text-hover-primary" href="#">SR.Pvt.Ltd</a>
+                                                </td>
+                                                <td>
+                                                    <div class="row align-items-center">
+                                                        <div class="col-auto ps-0"><img
+                                                                src="../assets/images/user/avatar-2.jpg"
+                                                                alt="user-image" class="wid-40 rounded"></div>
+                                                        <div class="col">
+                                                            <h6 class="mb-0">Carson Darrin</h6>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="user-group"><img
+                                                            src="../assets/images/user/avatar-4.jpg" alt="user-image"
+                                                            class="avtar" data-bs-toggle="tooltip"
+                                                            data-bs-title="John Doe"> <img
+                                                            src="../assets/images/user/avatar-6.jpg" alt="user-image"
+                                                            class="avtar" data-bs-toggle="tooltip"
+                                                            data-bs-title="Keefs"> <img
+                                                            src="../assets/images/user/avatar-7.jpg" alt="user-image"
+                                                            class="avtar" data-bs-toggle="tooltip"
+                                                            data-bs-title="Lazaro"> <img
+                                                            src="../assets/images/user/avatar-8.jpg" alt="user-image"
+                                                            class="avtar" data-bs-toggle="tooltip"
+                                                            data-bs-title="Adeline"> <span
+                                                            class="avtar rounded-circle bg-light-primary text-primary">+1</span>
+                                                    </div>
+                                                </td>
+                                                <td><span>India</span>
+                                                    <div class="prod-action-links">
+                                                        <ul class="list-inline me-auto mb-0">
+                                                            <li class="list-inline-item align-bottom"
+                                                                data-bs-toggle="tooltip" aria-label="View"
+                                                                data-bs-original-title="View"><a href="#"
+                                                                    class="avtar avtar-xs btn-link-warning btn-pc-default"
+                                                                    data-bs-toggle="offcanvas"
+                                                                    data-bs-target="#productOffcanvas"><i
+                                                                        class="ti ti-eye f-18"></i></a></li>
+                                                            <li class="list-inline-item align-bottom"
+                                                                data-bs-toggle="tooltip" aria-label="Edit"
+                                                                data-bs-original-title="Edit"><a href="#!"
+                                                                    class="avtar avtar-xs btn-link-success btn-pc-default"><i
+                                                                        class="ti ti-edit-circle f-18"></i></a></li>
+                                                            <li class="list-inline-item align-bottom"
+                                                                data-bs-toggle="tooltip" aria-label="Delete"
+                                                                data-bs-original-title="Delete"><a href="#"
+                                                                    class="avtar avtar-xs btn-link-danger btn-pc-default"><i
+                                                                        class="ti ti-trash f-18"></i></a></li>
+                                                        </ul>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="datatable-bottom">
+                                    <div class="datatable-info">Showing 1 to 5 of 8 entries</div>
+                                    <nav class="datatable-pagination">
+                                        <ul class="datatable-pagination-list">
+                                            <li
+                                                class="datatable-pagination-list-item datatable-hidden datatable-disabled">
+                                                <a data-page="1" class="datatable-pagination-list-item-link">‹</a>
+                                            </li>
+                                            <li class="datatable-pagination-list-item datatable-active"><a data-page="1"
+                                                    class="datatable-pagination-list-item-link">1</a></li>
+                                            <li class="datatable-pagination-list-item"><a data-page="2"
+                                                    class="datatable-pagination-list-item-link">2</a></li>
+                                            <li class="datatable-pagination-list-item"><a data-page="2"
+                                                    class="datatable-pagination-list-item-link">›</a></li>
+                                        </ul>
+                                    </nav>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- [ sample-page ] end -->
+            </div><!-- [ Main Content ] end -->
+        </div>
+    </div>
+    {{>foot}}
+</body>
+
+</html>

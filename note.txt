@@ -1,0 +1,16 @@
+router.get(['/momo'], async (req, res, next) => {
+    try {
+
+        res.render('admin/home', { title: 'Quản Trị Hệ Thống' })
+    } catch (err) {
+        next(err);
+    }
+});
+
+
+// EVENT 
+1 NHIỆM VỤ NGÀY
+2 ĐIỂM DANH
+3 HOÀN CƯỢC 
+4 VQMM 
+5 GIỚI THIỆU 
