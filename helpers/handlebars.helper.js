@@ -29,6 +29,9 @@ module.exports = {
                 return options.inverse(this);
         }
     },
+    loopCounter: function (index) {
+        return index + 1;
+    },
     numberFormat: (number) => Intl.NumberFormat('en-US').format(number || 0),
     convertCurrency: (number) => (number > 999 && number < 1000000) ? (number / 1000) + 'K' : (number >= 1000000 ? (number / 1000000) + 'M' : Intl.NumberFormat().format(number)),
     sum: (num1, num2) => num1 + num2,
@@ -47,9 +50,9 @@ module.exports = {
         query = utils.checkQuery(query, ['column', '_sort']);
 
         let icons = {
-            desc: 'fooicon fooicon-sort-desc',
-            asc: 'fooicon fooicon-sort-asc',
-            default: 'fooicon fooicon-sort'
+            desc: 'fa fa-sort-down',
+            asc: 'fa fa-sort-up',
+            default: 'fa fa-sort'
         }
 
         let types = {
@@ -60,7 +63,7 @@ module.exports = {
 
         let typeSort = column == sort.column ? sort.type : 'default';
 
-        return `<a href="${query ? `?${query}&` : '?'}column=${column}&_sort=${types[typeSort]}"><span class="${icons[typeSort]}"></span></a>`;
+        return `<a href="${query ? `?${query}&` : '?'}column=${column}&_sort=${types[typeSort]}"><i class="${icons[typeSort]}"></i></a>`;
     },
     paginate: (pagination, options) => {
         var type = options.hash.type || 'middle';
@@ -215,6 +218,9 @@ module.exports = {
             case 'wait':
                 html = `<span class="badge bg-light-info">Đợi Xử Lý</span>`;
                 break;
+            case 'success':
+                html = `<span class="badge bg-light-success">Đã xử lý</span>`;
+                break;
             case 'transfer':
                 html = `<span class="badge bg-light-secondary">Chuyển Tiền</span>`;
                 break;
@@ -246,7 +252,7 @@ module.exports = {
                 html = `<span class="badge bg-light-success">Thắng Cược</span>`;
                 break;
             case 'won':
-                html = `<span class="badge bg-light-light">Thua Cược</span>`;
+                html = `<span class="badge bg-light-danger">Thua Cược</span>`;
                 break;
             case 'errorMoney':
                 html = `<span class="badge bg-light-warning">Không Đủ Tiền</span>`;

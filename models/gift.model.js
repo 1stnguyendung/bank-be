@@ -5,7 +5,7 @@ const giftSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    amount: Number,
+    amount: String,
     playCount: Number,
     limit: Number,
     players: Array,

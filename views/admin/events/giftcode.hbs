@@ -9,9 +9,396 @@
     </div>
     {{>nav}}
     <div class="pc-container">
+        <div class="pc-content">
+            <div class="page-header">
+                <div class="page-block">
+                    <div class="row align-items-center justify-content-between">
+                        <div class="col-sm-auto">
+                            <div class="page-header-title">
+                                <h5 class="mb-0">Quản Lý GIFTCODE</h5>
+                            </div>
+                        </div>
+                        <div class="col-sm-auto">
+                            <ul class="breadcrumb">
+                                <li class="breadcrumb-item">
+                                    <a href="/"><i class="ph-duotone ph-house"></i></a>
+                                </li>
+                                <li class="breadcrumb-item" aria-current="page">Quản Lý GIFTCODE</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="card table-card card-border-none user-profile-list">
+                        <form>
+                            <div class="row g-4">
+                                <div class="col-md-4">
+                                    <input class="mb-0 form-control form-control-sm" value="{{ search }}" name="search"
+                                        type="text" placeholder="Tìm kiếm">
+                                </div>
+                                <div class="col-md-4">
+                                    <select name="status" class="mb-3 form-select form-select-sm">
+                                        {{#select status }}
+                                        <option value="">Tất Cả</option>
+                                        <option value="active">Hoạt Động</option>
+                                        <option value="pending">Tạm Dừng</option>
+                                        {{/select}}
+                                    </select>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group mb-3">
+                                        <button class="btn btn-primary btn-sm w-100">
+                                            <i class="fa fa-search" aria-hidden="true"></i> Tìm
+                                            kiếm</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-striped" id="pc-dt-simple">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        <span data-bs-submit="giftcode" data-bs-action="add">
+                                            <i class="fa fa-plus-circle" aria-hidden="true"></i>
+                                        </span>
+                                    </th>
+                                    <th>Mã code</th>
+                                    <th>Tiền nhận {{{ tableSort query 'amount' _sort }}}</th>
+                                    <th>Điều kiện</th>
+                                    <th>Số lượng {{{ tableSort query 'limit' _sort }}}</th>
+                                    <th>Còn lại</th>
+                                    <th>Ngày tạo</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            <tbody class="table-row">
+                                {{#each list}}
+                                <tr data-id="{{ this._id }}">
+                                    <td>
+                                        <div class="d-flex gap-2">
+                                            <span data-row="edit" data-id="{{ this._id }}" class="text-success">
+                                                <i class="fa fa-edit text-success"></i>
+                                            </span>
+                                            <span class="text-danger" data-row="delete" data-id="{{ this._id }}">
+                                                <i class="ti ti-trash f-18" aria-hidden="true"></i>
+                                            </span>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <b class="code">{{ this.code }}</b>
+                                        <input type="text" name="code" class="form-control hide"
+                                            value="{{ this.code }}">
+                                    </td>
+                                    <td>
+                                        <b class="amount">{{ numberFormat this.amount }}</b>
+                                        <input type="text" name="amount" class="form-control hide"
+                                            value="{{ this.amount }}">
+                                    </td>
+                                    <td>
+                                        <b class="playCount">{{ numberFormat this.playCount }}</b>
+                                        <input type="text" name="playCount" class="form-control hide"
+                                            value="{{ this.playCount }}">
+                                    </td>
+                                    <td>
+                                        <b class="limit">{{ numberFormat this.limit }}</b>
+                                        <input type="text" name="limit" class="form-control hide"
+                                            value="{{ this.limit }}">
+                                    </td>
+                                    <td>
+                                        <b class="limit">{{ numberFormat this.limit - this.players.length }}</b>
+                                    </td>
+                                    <td>
+                                        <b>{{ formatDate this.createdAt 'HH:mm:ss DD-MM-YYYY'}}</b>
+                                    </td>
+                                </tr>
+                                {{else}}
+                                <tr class="empty">
+                                    <td colspan="24">
+                                        <div class="dm-empty text-center">
+                                            <div class="dm-empty__image">
+                                                <img src="/assets/images/1.png" alt="Rỗng">
+                                            </div>
+                                            <div class="dm-empty__text">
+                                                <p class="">Không có dữ liệu !</p>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                {{/each}}
+                            </tbody>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="datatable-bottom">
+                        <div class="col-md-2">
+                            <select name="perPage" class="mb-3 form-select form-select-sm"
+                                data-query="{{ checkQuery originalUrl.search 'perPage' }}">
+                                {{#select perPage }}
+                                <option value="10">10/page</option>
+                                <option value="20">20/page</option>
+                                <option value="40">40/page</option>
+                                <option value="60">60/page</option>
+                                <option value="100">100/page</option>
+                                <option value="200">200/page</option>
+                                <option value="500">500/page</option>
+                                {{/select}}
+                            </select>
+                            </select>
+                        </div>
+                        <nav class="datatable-pagination">
+                            <ul class="datatable-pagination-list">
+                                <li class="dm-pagination__item">
+                                    {{#paginate pagination type="previous"}}
+                                    <a href="{{ baseURL }}?{{#if query }}{{ query }}&page={{n}}{{else}}page={{n}}{{/if}}"
+                                        class="datatable-pagination-list-item datatable-hidden datatable-{{#if disabled}}disabled{{/if}}">
+                                        <span class="ti ti-arrow-left"></span>
+                                    </a>
+                                    {{/paginate}}
+                                    {{#paginate pagination type="middle" limit=pagination.limit}}
+                                    <a href="{{ baseURL }}?{{#if query }}{{ query }}&page={{n}}{{else}}page={{n}}{{/if}}"
+                                        class="datatable-pagination-list-item datatable-{{#if active}}active{{/if}}"><span
+                                            class="datatable-pagination-list-item-link">{{n}}</span>
+                                    </a>
+                                    {{/paginate}}
+                                    {{#paginate pagination type="next"}}
+                                    <a href="{{ baseURL }}?{{#if query }}{{ query }}&page={{n}}{{else}}page={{n}}{{/if}}"
+                                        class="datatable-pagination-list-item datatable-hidden datatable-{{#if disabled}}disabled{{/if}}">
+                                        <span class="ti ti-arrow-right"></span>
+                                    </a>
+                                    {{/paginate}}
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" data-bs-modal="giftcode-add" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
+        aria-modal="true" style="display: none;">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Thêm GIFTCODE</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form action="#" method="post" id="formAdd">
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="" class="mb-2">Loại GIFTCODE</label>
+                            <select name="type" class="mb-3 form-select form-select-sm" id="giftcodeType">
+                                <option value="">Vui lòng chọn</option>
+                                <option value="ONE">1 GIFTCODE</option>
+                                <option value="MANY">NHIỀU GIFTCODE</option>
+                            </select>
+                        </div>
 
+                        <div class="form-group" id="codeDiv" style="display: none;">
+                            <div class="input-group">
+                                <input type="text" name="code" class="form-control" placeholder="GAEGAEFG">
+                                <button class="btn btn-outline-secondary randomCode" type="button">Tạo code</button>
+                            </div>
+                        </div>
+
+                        <div class="form-group" id="amountDiv" style="display: none;">
+                            <label for="" class="mb-2">Tiền nhận</label>
+                            <input type="text" name="amount" class="form-control" placeholder="Nhập số tiền...">
+                        </div>
+
+                        <div class="form-group" id="countDiv" style="display: none;">
+                            <label for="" class="mb-2">Số lượng</label>
+                            <input type="text" name="count" class="form-control" placeholder="Nhập số lượng...">
+                        </div>
+
+                        <div class="form-group" id="conditionDiv" style="display: none;">
+                            <label for="" class="mb-2">Điều kiện</label>
+                            <input type="text" name="min" class="form-control" placeholder="Nhập điều kiện...">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary lh-1" data-bs-dismiss="modal">Đóng</button>
+                        <button data-btn-action="add" type="submit"
+                            class="btn btn-primary lh-1 action-add ">Thêm</button>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
     {{>foot}}
+    <script>
+        let urlDoamin = '{{urlCurl}}';
+
+        function generateRandomString(length) {
+            const charset = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+            let randomString = "";
+
+            for (let i = 0; i < length; i++) {
+                const randomIndex = Math.floor(Math.random() * charset.length);
+                randomString += charset.charAt(randomIndex);
+            }
+
+            return randomString;
+        }
+
+
+        $('body').on('click', '.randomCode', function (e) {
+            const randomString = generateRandomString(8);
+            $('input[name="code"]').val(randomString);
+        }).on('click', 'span[data-row="delete"]', function (e) {
+            var dataId = $(this).data('id');
+            Swal.fire({
+                icon: 'info',
+                title: "Bạn chắc chắn muốn xóa #" + dataId + ' không?',
+                showDenyButton: true,
+                confirmButtonText: "Đồng ý",
+                denyButtonText: "Đóng"
+            }).then((result) => {
+                if (result.isConfirmed) {
+
+                    let config = {
+                        method: 'post',
+                        maxBodyLength: Infinity,
+                        url: urlDoamin + '/giftcode/delete',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        data: {
+                            id: dataId
+                        }
+                    };
+
+                    axios.request(config)
+                        .then((response) => {
+                            response.data.status ? swal('Thông báo', response.data.message, 'success') && setTimeout(() => window.location.reload(), 1500) : swal('Thông báo', response.data.message, 'error');
+                        })
+                        .catch((err) => {
+                            swal('Thông Báo', err.message || err, 'error');
+
+                        });
+
+                } else if (result.isDenied) {
+                    Swal.fire("Đã hủy thao tác", "", "info");
+                }
+            });
+        });
+
+        $('body').on('submit', '#formAdd', function (e) {
+            e.preventDefault();
+            let action = $('.action-add').data('btn-action');
+            let data = $(this).serialize();
+
+            $('.action-add').html(`<span class="spinner-border spinner-border-sm" role="status"></span> Đang xử lý`).prop('disabled', true);
+
+            axios.post(urlDoamin + `/giftcode/${action}`, data)
+                .then((result) => {
+
+                    $('.action-add').html('Thêm').prop('disabled', false);
+
+                    let res = result.data;
+
+                    res.status ? swal('Thông báo', res.message, 'success') && setTimeout(() => window.location.reload(), 1500) : swal('Thông báo', res.message, 'error');
+
+                })
+                .catch((err) => {
+                    swal('Thông Báo', err.message || err, 'error');
+                })
+        }).on('click', 'span[data-row="edit"]', function (e) {
+            var dataId = $(this).data('id');
+
+            $(`tr[data-id="${dataId}"] input`).removeClass('hide');
+            $(`tr[data-id="${dataId}"] b`).addClass('hide');
+        }).on('dblclick', 'span[data-row="edit"]', function (e) {
+            var dataId = $(this).data('id');
+
+            var code = $(`tr[data-id="${dataId}"] input[name="code"]`).val();
+            var limit = $(`tr[data-id="${dataId}"] input[name="limit"]`).val();
+            var playCount = $(`tr[data-id="${dataId}"] input[name="playCount"]`).val();
+            var amount = $(`tr[data-id="${dataId}"] input[name="amount"]`).val();
+
+            let data = JSON.stringify({
+                code,
+                playCount,
+                amount,
+                limit,
+                id: dataId
+            });
+
+
+            let config = {
+                method: 'post',
+                maxBodyLength: Infinity,
+                url: urlDoamin + '/giftcode/update',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                data: data
+            };
+
+            axios.request(config)
+                .then((response) => {
+                    if (response.data.status) {
+                        $(`tr[data-id="${dataId}"] input`).addClass('hide');
+                        $(`tr[data-id="${dataId}"] b`).removeClass('hide');
+
+                        swal('Thông báo', response.data.message, 'success')
+
+
+                        $(`tr[data-id="${dataId}"] input[name="code"]`).val(code);
+                        $(`tr[data-id="${dataId}"] input[name="limit"]`).val(limit);
+                        $(`tr[data-id="${dataId}"] input[name="amount"]`).val(amount);
+                        $(`tr[data-id="${dataId}"] input[name="playCount"]`).val(playCount);
+
+
+                        $(`tr[data-id="${dataId}"] b.playCount`).html(Intl.NumberFormat('en-US').format(playCount));
+                        $(`tr[data-id="${dataId}"] b.amount`).html(Intl.NumberFormat('en-US').format(amount));
+                        $(`tr[data-id="${dataId}"] b.limit`).html(Intl.NumberFormat('en-US').format(limit));
+                        $(`tr[data-id="${dataId}"] b.code`).html(code);
+
+                    } else {
+                        swal('Thông báo', response.data.message, 'error')
+                    }
+                })
+                .catch((err) => {
+                    swal('Thông Báo', err.message || err, 'error');
+
+                });
+
+
+        });
+
+        const giftcodeTypeSelect = document.getElementById('giftcodeType');
+        const codeDiv = document.getElementById('codeDiv');
+        const amountDiv = document.getElementById('amountDiv');
+        const countDiv = document.getElementById('countDiv');
+        const conditionDiv = document.getElementById('conditionDiv');
+
+        giftcodeTypeSelect.addEventListener('change', function () {
+            const selectedValue = this.value;
+
+            // Ẩn tất cả các div trước khi hiển thị div tương ứng
+            codeDiv.style.display = 'none';
+            amountDiv.style.display = 'none';
+            countDiv.style.display = 'none';
+            conditionDiv.style.display = 'none';
+
+            // Hiển thị div tương ứng với lựa chọn của người dùng
+            if (selectedValue === 'ONE') {
+                codeDiv.style.display = 'block';
+                amountDiv.style.display = 'block';
+                countDiv.style.display = 'block';
+                conditionDiv.style.display = 'block';
+            } else if (selectedValue === 'MANY') {
+                countDiv.style.display = 'block';
+                amountDiv.style.display = 'block';
+                conditionDiv.style.display = 'block';
+
+            }
+        });
+    </script>
 </body>
 
 </html>

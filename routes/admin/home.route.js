@@ -5,13 +5,33 @@ const momoRoute = require('../admin/momo.route');
 const bankRoute = require('./bank.route');
 const logModel = require('../../models/log.model')
 const missionRoute = require('./mission.route');
+const giftRoute = require('./giftcode.route');
+const installController = require('../../controllers/admin/install.controller')
+const installRoute = require('./install.route');
+const { isAdmin, loggedIn } = require('../../middlewares/auth.middleware');
+const authRoute = require('./auth.route');
+const settingRoute = require('./setting.route');
+const revenueService = require('../../services/revenue.service');
+const historyRoute = require('./history.route');
+const wheelRoute = require('./wheel.route');
+const eventRoute = require('./event.route');
+const momoModel = require('../../models/momo.model');
+const bankModel = require('../../models/bank.model');
 
 router.use('/momo', momoRoute);
-router.use('/bank', bankRoute);
-router.use('/mission', missionRoute);
+router.use('/bank', loggedIn, bankRoute);
+router.use('/mission', loggedIn, missionRoute);
+router.use('/giftcode', loggedIn, giftRoute);
+router.use('/install', installRoute);
+router.use('/setting', loggedIn, settingRoute);
+router.use('/history', loggedIn, historyRoute);
+router.use('/wheel', loggedIn, wheelRoute);
+router.use('/event', loggedIn, eventRoute);
+
+router.use(authRoute);
 
 
-router.get(['/', '/home', '/dashboard'], async (req, res, next) => {
+router.get(['/', '/home', '/dashboard'], loggedIn, async (req, res, next) => {
     try {
         let _phone, gameType;
         let _revenueTime = moment().format('YYYY-MM-DD');
@@ -47,68 +67,66 @@ router.get(['/', '/home', '/dashboard'], async (req, res, next) => {
             req.query._revenueTime.match(dataTime.regex) && (_revenueTime = moment(req.query._revenueTime).format(dataTime.format))
         }
 
-        const urlCurl = process.env.urlAdmin + process.env.adminPath;
+        let logs = await logModel.find().sort({ createdAt: 'desc' }).limit(30).lean();
+        let revenueData = {
+            ...await revenueService.revenueBet(_revenueTime, typeDate, _phone, gameType),
+            ...await revenueService.revenueMoney(_revenueTime, typeDate, _phone, gameType)
+        }
 
-        let logs = await logModel.find().sort({ time: 'desc' }).limit(30).lean();
-        // let revenueData = {
-        //     ...await revenueService.revenueBet(_revenueTime, typeDate, _phone, gameType),
-        //     ...await revenueService.revenueMoney(_revenueTime, typeDate, _phone, gameType)
-        // }
+        let filterAmountMomo = [{ $match: { status: 'active' } }, { $group: { _id: null, amount: { $sum: '$amount' } } }]
+        let filterAmountBank = [{ $match: { status: 'active' } }, { $group: { _id: null, amount: { $sum: '$amount' } } }]
 
-        res.render('admin/home', { title: 'Quản Trị Hệ Thống', urlCurl })
+        let [amountMomo, amountBank] = await Promise.all([momoModel.aggregate(filterAmountMomo), bankModel.aggregate(filterAmountBank)]);
+
+        amountMomo = amountMomo.length ? amountMomo[0].amount : 0;
+        amountBank = amountBank.length ? amountBank[0].amount : 0;
+
+        res.render('admin/home', { title: 'Quản Trị Hệ Thống', revenueData, _revenueTime, typeDate, logs, amountBank, amountMomo })
     } catch (err) {
         next(err);
     }
 });
 
-router.get(['/history/game'], async (req, res, next) => {
-    try {
+// router.get(['/history/game'], async (req, res, next) => {
+//     try {
 
-        res.render('admin/historyGame', { title: 'Quản Trị Hệ Thống' })
-    } catch (err) {
-        next(err);
-    }
-});
+//         res.render('admin/historyGame', { title: 'Quản Trị Hệ Thống' })
+//     } catch (err) {
+//         next(err);
+//     }
+// });
 
-router.get(['/history/event'], async (req, res, next) => {
-    try {
+// router.get(['/history/event'], async (req, res, next) => {
+//     try {
 
-        res.render('admin/historyEvent', { title: 'Lịch sử EVENT' })
-    } catch (err) {
-        next(err);
-    }
-});
+//         res.render('admin/historyEvent', { title: 'Lịch sử EVENT' })
+//     } catch (err) {
+//         next(err);
+//     }
+// });
 
-router.get(['/history/received'], async (req, res, next) => {
-    try {
+// router.get(['/history/received'], async (req, res, next) => {
+//     try {
 
-        res.render('admin/historyReceive', { title: 'Lịch sử nhận tiền' })
-    } catch (err) {
-        next(err);
-    }
-});
+//         res.render('admin/historyReceive', { title: 'Lịch sử nhận tiền' })
+//     } catch (err) {
+//         next(err);
+//     }
+// });
 
-router.get(['/history/transfer'], async (req, res, next) => {
-    try {
+// router.get(['/history/transfer'], async (req, res, next) => {
+//     try {
 
-        res.render('admin/historyTransfer', { title: 'Lịch sử chuyển tiền' })
-    } catch (err) {
-        next(err);
-    }
-});
+//         res.render('admin/historyTransfer', { title: 'Lịch sử chuyển tiền' })
+//     } catch (err) {
+//         next(err);
+//     }
+// });
 
 router.get(['/setting/game'], async (req, res, next) => {
     try {
 
         res.render('admin/settingGame', { title: 'Cài đặt trò chơi' })
-    } catch (err) {
-        next(err);
-    }
-});
-router.get(['/event'], async (req, res, next) => {
-    try {
-
-        res.render('admin/settingEvent', { title: 'Cài đặt EVENT' })
     } catch (err) {
         next(err);
     }
@@ -121,14 +139,7 @@ router.get(['/setting/reward'], async (req, res, next) => {
         next(err);
     }
 });
-router.get(['/setting/website'], async (req, res, next) => {
-    try {
 
-        res.render('admin/settingWebsite', { title: 'Cài đặt chung' })
-    } catch (err) {
-        next(err);
-    }
-});
 
 router.get(['/manager/user'], async (req, res, next) => {
     try {

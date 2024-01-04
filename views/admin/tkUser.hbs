@@ -8,7 +8,159 @@
         </div>
     </div>
     {{>nav}}
+    <div class="pc-container">
+        <div class="pc-content"><!-- [ breadcrumb ] start -->
+            <div class="page-header">
+                <div class="page-block">
+                    <div class="row align-items-center justify-content-between">
+                        <div class="col-sm-auto">
+                            <div class="page-header-title">
+                                <h5 class="mb-0">Quản lý ngừời tham gia</h5>
+                            </div>
+                        </div>
+                        <div class="col-sm-auto">
+                            <ul class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="../navigation/index.html"><i
+                                            class="ph-duotone ph-house"></i></a></li>
+                                <li class="breadcrumb-item"><a href="javascript: void(0)">User</a></li>
+                                <li class="breadcrumb-item" aria-current="page">Khách hàng</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div><!-- [ breadcrumb ] end --><!-- [ Main Content ] start -->
+            <div class="row"><!-- [ sample-page ] start -->
+                <div class="col-sm-12">
+                    <div class="card table-card">
 
+                        <div class="card-body table-card">
+                            <div class="datatable-wrapper datatable-loading no-footer searchable fixed-columns">
+
+                                <div class="datatable-container">
+                                    <table class="table tbl-product datatable-table" id="pc-dt-simple">
+                                        <thead>
+                                            <tr>
+                                                <th>#</th>
+                                                <th>SDT</th>
+                                                <th>Trạng thái đăng ký</th>
+                                                <th>Tổng nhận</th>
+                                                <th>Tổng trừ</th>
+                                                <th>Doanh thu</th>
+                                                <th>Ngày tạo</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr data-index="0">
+                                                <td>1</td>
+                                                <td>
+                                                    0763637777
+                                                </td>
+                                                <td>
+                                                    <span class="badge bg-light-success">Đã Đăng kí</span>
+                                                </td>
+                                                <td>
+                                                    770.000đ
+                                                </td>
+                                                <td>
+                                                    550.000đ
+                                                </td>
+                                                <td>
+                                                    220.000đ
+                                                </td>
+
+                                                <td><span>2024-01-02</span>
+                                                    <div class="prod-action-links">
+                                                        <ul class="list-inline me-auto mb-0">
+                                                            <li class="list-inline-item align-bottom"
+                                                                data-bs-submit="bank" data-bs-action="add"><i
+                                                                    class="ti ti-eye f-18"></i></a></li>
+                                                            <li class="list-inline-item align-bottom"
+                                                                data-bs-toggle="tooltip" aria-label="Edit"
+                                                                data-bs-original-title="Edit"><a href="#!"
+                                                                    class="avtar avtar-xs btn-link-success btn-pc-default"><i
+                                                                        class="ti ti-edit-circle f-18"></i></a></li>
+                                                            <li class="list-inline-item align-bottom"
+                                                                data-bs-toggle="tooltip" aria-label="Delete"
+                                                                data-bs-original-title="Delete"><a href="#"
+                                                                    class="avtar avtar-xs btn-link-danger btn-pc-default"><i
+                                                                        class="ti ti-trash f-18"></i></a></li>
+                                                        </ul>
+                                                    </div>
+                                                </td>
+                                            </tr>
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="datatable-bottom">
+                                    <div class="datatable-info">Showing 1 to 5 of 8 entries</div>
+                                    <nav class="datatable-pagination">
+                                        <ul class="datatable-pagination-list">
+                                            <li
+                                                class="datatable-pagination-list-item datatable-hidden datatable-disabled">
+                                                <a data-page="1" class="datatable-pagination-list-item-link">‹</a>
+                                            </li>
+                                            <li class="datatable-pagination-list-item datatable-active"><a data-page="1"
+                                                    class="datatable-pagination-list-item-link">1</a></li>
+                                            <li class="datatable-pagination-list-item"><a data-page="2"
+                                                    class="datatable-pagination-list-item-link">2</a></li>
+                                            <li class="datatable-pagination-list-item"><a data-page="2"
+                                                    class="datatable-pagination-list-item-link">›</a></li>
+                                        </ul>
+                                    </nav>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- [ sample-page ] end -->
+            </div><!-- [ Main Content ] end -->
+        </div>
+    </div>
+    <div class="modal fade" data-bs-modal="bank-add" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Thông tin khách hàng 0763637777</h5><button type="button" class="btn-close"
+                        data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form action="#" method="post" id="formAdd">
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <center for="">Tổng nhận trong ngày</center>
+                                <input type="text" class="form-control" value="550.000đ" disabled>
+                            </div>
+                            <div class="col-md-6">
+                                <center for="">Tổng trừ trong ngày</center>
+                                <input type="text" class="form-control" value="550.000đ" disabled>
+                            </div>
+                            <div class="col-md-6">
+                                <center for="">Tổng nhận trong tháng</center>
+                                <input type="text" class="form-control" value="550.000đ" disabled>
+                            </div>
+                            <div class="col-md-6">
+                                <center for="">Tổng trừ trong tháng</center>
+                                <input type="text" class="form-control" value="550.000đ" disabled>
+                            </div>
+                            <div class="col-md-12">
+                                <center for="">Doanh thu</center>
+                                <input type="text" class="form-control" value="550.000đ" disabled>
+                            </div>
+                            <div class="col-md-12">
+                                <center for="">Đã tham gia</center>
+                                <input type="text" class="form-control"
+                                    value="1200 bill (500 bill thắng - 700 bill thua)" disabled>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="modal-footer"><button type="button" class="btn btn-secondary lh-1"
+                            data-bs-dismiss="modal">Đóng</button></div>
+                </form>
+            </div>
+        </div>
+    </div>
     {{>foot}}
 </body>
 

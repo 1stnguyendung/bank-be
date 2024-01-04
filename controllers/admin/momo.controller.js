@@ -3,9 +3,9 @@ const momoModel = require('../../models/momo.model')
 const transferModel = require('../../models/transfer.model')
 const utils = require('../../helpers/utils.helper')
 const momoService = require('../../services/momo.service')
+const logHelper = require('../../helpers/log.helper');
 
 const momoController = {
-
     index: async(req, res, next) => {
         try {
             
@@ -156,7 +156,7 @@ const momoController = {
         }
     },
 
-    login: async(req, res, next) => {
+    verfiy: async(req, res, next) => {
         try {
 
             var { phone, password, otp } = req.body;
@@ -206,7 +206,9 @@ const momoController = {
                         requestEncryptKey: resultLogin.requestEncryptKey ,
                         REFRESH_TOKEN: resultLogin.REFRESH_TOKEN,
                         amount: resultLogin.balance,
-                        loginStatus: 'active'
+                        loginStatus: 'active',
+                        pHash: resultRegDevice.pHash,
+                        password
                     } 
                 })
                 return res.status(200).json({
@@ -402,7 +404,174 @@ const momoController = {
         } catch (err) {
             console.log(err);
         }
-    }
+    },
+
+    refresh: async(req, res, next) => {
+        try {
+            var { phone } = req.body;
+
+            var momoData = await momoModel.findOne({ phone });
+
+            if (!momoData) {
+                return res.status(200).json({
+                    'statusText': 'error',
+                    'status': false,
+                    'message': 'Số momo không có trong hệ thống.'
+                });
+            }
+
+            // var resultLogin = await momoHelper.loginMsg(phone, momoData.password, momoData.pHash, momoData.modelId, momoData.deviceToken, momoData.setupKey);
+            var resultLogin = await momoHelper.refreshToken(phone);
+
+            console.log(resultLogin);
+
+            if (resultLogin.success) {
+                    return res.status(200).json({
+                    'statusText': 'success',
+                    'status': true,
+                    'message': 'Đổi token đăng nhập momo ' + momoData.phone + ' thành công'
+                });
+            } else {
+                return res.status(200).json({
+                    'statusText': 'error',
+                    'status': false,
+                    'message': 'Đổi token đăng nhập momo ' + momoData.phone + ' thất bại'
+                });
+            }
+
+            // if (resultLogin.accessToken) {
+            //     await momoModel.findByIdAndUpdate(momoData._id, { 
+            //         $set: 
+            //         { 
+            //             AUTH_TOKEN: resultLogin.accessToken, 
+            //             sessionKey: resultLogin.sessionKey, 
+            //             agentId: resultLogin.agentId, 
+            //             requestEncryptKey: resultLogin.requestEncryptKey ,
+            //             REFRESH_TOKEN: resultLogin.REFRESH_TOKEN,
+            //             amount: resultLogin.balance,
+            //             loginStatus: 'active',
+            //             loginAt: new Date()
+            //         } 
+            //     })
+            //     return res.status(200).json({
+            //         'statusText': 'success',
+            //         'status': true,
+            //         'message': 'Đổi token đăng nhập momo ' + momoData.phone + ' thành công'
+            //     });
+            // } else {
+            //     return res.status(200).json({
+            //         'statusText': 'error',
+            //         'status': false,
+            //         'message': 'Đổi token đăng nhập momo ' + momoData.phone + ' thất bại'
+            //     });
+            // }
+
+
+        } catch (err) {
+            console.log(err);
+            return res.status(200).json({
+                'statusText': 'error',
+                'status': false,
+                'message': 'Đổi token đăng nhập momo thất bại'
+            });
+        }
+    },
+
+    balance: async(req, res, next) => {
+        try {
+
+            let { phone } = req.body;
+            let data = await momoModel.findOne({phone});
+
+            if (!data) {
+                return res.status(200).json({
+                    'statusText': 'error',
+                    'status': false,
+                    'message': 'Không tìm thấy số ' + phone
+                })
+            }
+
+            var resultGetBalance = await momoHelper.getBalance(phone);
+
+            if (resultGetBalance.success) {
+                return res.status(200).json({
+                    'statusText': 'success',
+                    'status': true,
+                    'balance': resultGetBalance.balance,
+                    'message': 'Lấy số dư thành công'
+                })
+            } else {
+                return res.status(200).json({
+                    'statusText': 'error',
+                    'status': false,
+                    'balance': resultGetBalance.balance,
+                    'message': resultGetBalance.message
+                }) 
+            }
+
+           
+
+        } catch (err) {
+            next(err);
+        }
+    },
+
+    login: async(req, res, next) => {
+        try {
+            var { phone } = req.body;
+
+            var momoData = await momoModel.findOne({ phone });
+
+            if (!momoData) {
+                return res.status(200).json({
+                    'statusText': 'error',
+                    'status': false,
+                    'message': 'Số momo không có trong hệ thống.'
+                });
+            }
+
+            var resultLogin = await momoHelper.loginMsg(phone, momoData.password, momoData.pHash, momoData.modelId, momoData.deviceToken, momoData.setupKey);
+
+            console.log(resultLogin);
+
+            if (resultLogin.accessToken) {
+                await momoModel.findByIdAndUpdate(momoData._id, { 
+                    $set: 
+                    { 
+                        AUTH_TOKEN: resultLogin.accessToken, 
+                        sessionKey: resultLogin.sessionKey, 
+                        agentId: resultLogin.agentId, 
+                        requestEncryptKey: resultLogin.requestEncryptKey ,
+                        REFRESH_TOKEN: resultLogin.REFRESH_TOKEN,
+                        amount: resultLogin.balance,
+                        loginStatus: 'active',
+                        loginAt: new Date()
+                    } 
+                })
+                return res.status(200).json({
+                    'statusText': 'success',
+                    'status': true,
+                    'message': 'Đăng nhập lại momo ' + momoData.phone + ' thành công'
+                });
+            } else {
+                return res.status(200).json({
+                    'statusText': 'error',
+                    'status': false,
+                    'message': 'Đăng nhập lại momo ' + momoData.phone + ' thất bại'
+                });
+            }
+
+
+        } catch (err) {
+            console.log(err);
+            return res.status(200).json({
+                'statusText': 'error',
+                'status': false,
+                'message': 'Đăng nhập lại momo thất bại'
+            });
+        }
+    },
+
 }
 
 module.exports = momoController;

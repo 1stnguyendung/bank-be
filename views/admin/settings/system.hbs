@@ -1,0 +1,395 @@
+{{>head}}
+
+<body data-pc-preset="preset-1" data-pc-sidebar-theme="dark" data-pc-sidebar-caption="true" data-pc-direction="ltr"
+    data-pc-theme="light">
+    <div class="loader-bg">
+        <div class="pc-loader">
+            <div class="loader-fill"></div>
+        </div>
+    </div>
+    {{>nav}}
+    <div class="pc-container">
+        <div class="pc-content"><!-- [ breadcrumb ] start -->
+            <div class="page-header">
+                <div class="page-block">
+                    <div class="row align-items-center justify-content-between">
+                        <div class="col-sm-auto">
+                            <div class="page-header-title">
+                                <h5 class="mb-0">Settings</h5>
+                            </div>
+                        </div>
+                        <div class="col-sm-auto">
+                            <ul class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="../navigation/index.html"><i
+                                            class="ph-duotone ph-house"></i></a></li>
+                                <li class="breadcrumb-item"><a href="javascript: void(0)">Pages</a></li>
+                                <li class="breadcrumb-item" aria-current="page">Settings</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div><!-- [ breadcrumb ] end --><!-- [ Main Content ] start -->
+            <div class="row"><!-- [ site settings ] start -->
+                <div class="col-sm-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5>Cài đặt chung</h5>
+                        </div>
+                        <div class="card-body">
+                            <form action="" method="post" id="formSetting">
+                                <div class="row">
+                                    {{!-- Bắt Đầu Dữ Liệu Cơ Bản --}}
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="" class="il-gray fs-14 fw-500 mb-10">Tên
+                                                Website</label>
+                                            <input type="text" class="form-control ih-medium ip-light" name="nameSite"
+                                                value="{{ settings.nameSite }}" placeholder="Nhập tên website của bạn">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="" class="il-gray fs-14 fw-500 mb-10">Tiêu Đề</label>
+                                            <input type="text" class="form-control ih-medium ip-light"
+                                                name="defaultTitle" value="{{ settings.defaultTitle }}"
+                                                placeholder="Nhập tiêu đề website">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="" class="il-gray fs-14 fw-500 mb-10">Icon Website</label>
+                                            <input type="text" class="form-control ih-medium ip-light" name="favicon"
+                                                value="{{ settings.favicon }}"
+                                                placeholder="Nhập link icon website của bạn">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="" class="il-gray fs-14 fw-500 mb-10">Logo Website</label>
+                                            <input type="text" class="form-control ih-medium ip-light" name="logo"
+                                                value="{{ settings.logo }}"
+                                                placeholder="Nhập link logo website của bạn">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="" class="il-gray fs-14 fw-500 mb-10">Thumbnail</label>
+                                            <input type="text" class="form-control ih-medium ip-light" name="thumbnail"
+                                                value="{{ settings.thumbnail }}"
+                                                placeholder="Nhập link thumbnail website">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="" class="il-gray fs-14 fw-500 mb-10">Mô Tả</label>
+                                            <textarea class="form-control" name="description" rows="5"
+                                                placeholder="Nhập mô tả website của bạn">{{ settings.description
+                                                    }}</textarea>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="" class="il-gray fs-14 fw-500 mb-10">Từ Khóa</label>
+                                            <textarea class="form-control" name="keywords" rows="5"
+                                                placeholder="Nhập từ khóa tìm kiếm website của bạn">{{
+                                                    settings.keywords
+                                                    }}</textarea>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="" class="il-gray fs-14 fw-500 mb-10">Header Script</label>
+                                            <textarea class="form-control" name="headerScript" rows="3"
+                                                placeholder="headerScript">{{ settings.headerScript
+                                                    }}</textarea>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="" class="il-gray fs-14 fw-500 mb-10">Footer Script</label>
+                                            <textarea class="form-control" name="footerScript" rows="3"
+                                                placeholder="footerScript">{{
+                                                    settings.footerScript
+                                                    }}</textarea>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="" class="il-gray fs-14 fw-500 mb-10">Nội dung trả thưởng</label>
+                                            <input type="text" class="form-control" name="commentSite-rewardGD"
+                                                value="{{ settings.commentSite.rewardGD }}"
+                                                placeholder="Nhập nội dung nhận biết khi nạp tiền vào số ( thống kê )">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label for="" class="il-gray fs-14 fw-500 mb-10">Số Lượng Hiển
+                                                Thị</label>
+                                            <input type="number" class="form-control ih-medium ip-light"
+                                                name="limitPhone" value="{{ settings.limitPhone }}"
+                                                placeholder="Nhập số lượng số cần chạy">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label for="" class="il-gray fs-14 fw-500 mb-10">Nội Dung Nạp
+                                                Tiền</label>
+                                            <input type="text" class="form-control ih-medium ip-light"
+                                                name="paymentComment" value="{{ settings.paymentComment }}"
+                                                placeholder="Nhập nội dung nhận biết khi nạp tiền vào số ( thống kê )">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label for="" class="il-gray fs-14 fw-500 mb-10">Nội Dung Rút
+                                                Tiền</label>
+                                            <input type="text" class="form-control ih-medium ip-light"
+                                                name="withdrawComment" value="{{ settings.withdrawComment }}"
+                                                placeholder="Nhập nội dung nhận biết khi rút tiền ra khỏi số ( thống kê )">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label for="" class="il-gray fs-14 fw-500 mb-10">Trạng Thái Site</label>
+                                            <select name="siteStatus" class="form-control ih-medium ip-light">
+                                                {{#select settings.siteStatus }}
+                                                <option value="active">Hoạt Động</option>
+                                                <option value="maintenance">Bảo Trì</option>
+                                                {{/select }}
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="" class="il-gray fs-14 fw-500 mb-10">Mã Quà Tặng</label>
+                                            <select name="giftCode-status" class="form-control ih-medium ip-light">
+                                                {{#select settings.giftCode.status }}
+                                                <option value="active">Bật</option>
+                                                <option value="close">Tắt</option>
+                                                {{/select }}
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="" class="il-gray fs-14 fw-500 mb-10">BOT TOKEN
+                                                [TELEGRAM]</label>
+                                            <input type="text" class="form-control ih-medium ip-light"
+                                                name="telegram-token" value="{{ settings.telegram.token }}"
+                                                placeholder="Nhập token bot telegram">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="" class="il-gray fs-14 fw-500 mb-10">CHAT ID
+                                                [TELEGRAM]</label>
+                                            <input type="text" class="form-control ih-medium ip-light"
+                                                name="telegram-chatId" value="{{ settings.telegram.chatId }}"
+                                                placeholder="Nhập token bot telegram">
+                                        </div>
+                                    </div>
+                                    {{!-- Kết Thúc Dữ Liệu Cơ Bản --}}
+
+                                    {{!-- Bắt Đầu Hoàn Tiền --}}
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="" class="il-gray fs-14 fw-500 mb-10">Hoàn Tiền</label>
+                                            <select name="refund-status" class="form-control ih-medium ip-light">
+                                                {{#select settings.refund.status }}
+                                                <option value="active">Có</option>
+                                                <option value="close">Không</option>
+                                                {{/select }}
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label for="" class="il-gray fs-14 fw-500 mb-10">Hoàn tiền bill thua
+                                                (%)</label>
+                                            <input type="text" class="form-control ih-medium ip-light" name="refund-won"
+                                                value="{{ settings.refund.won }}"
+                                                placeholder="Nhập số phần trăm hoàn tiền khi thua">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label for="" class="il-gray fs-14 fw-500 mb-10">Hoàn tiền bill sai nội dung
+                                                (%)</label>
+                                            <input type="text" class="form-control ih-medium ip-light"
+                                                name="refund-fail" value="{{ settings.refund.fail }}"
+                                                placeholder="Nhập số phần trăm hoàn tiền khi bị sai nội dung">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="" class="il-gray fs-14 fw-500 mb-10">Giới Hạn Hoàn trong
+                                                ngày</label>
+                                            <input type="number" class="form-control ih-medium ip-light"
+                                                name="refund-limit" value="{{ settings.refund.limit }}"
+                                                placeholder="Nhập số lần hoàn tiền trong 1 ngày">
+                                        </div>
+                                    </div>
+                                    {{!-- Kết Thúc Hoàn Tiền --}}
+                                    {{!-- Bắt Đầu Nổ Hũ --}}
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label for="" class="il-gray fs-14 fw-500 mb-10">Nổ Hũ</label>
+                                            <select name="jackpot-status" class="form-control ih-medium ip-light">
+                                                {{#select settings.jackpot.status }}
+                                                <option value="active">Bật</option>
+                                                <option value="close">Tắt</option>
+                                                {{/select }}
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label for="" class="il-gray fs-14 fw-500 mb-10">Tiền Hũ</label>
+                                            <input type="number" class="form-control ih-medium ip-light"
+                                                name="jackpotCount" value="{{ settings.jackpotCount }}"
+                                                placeholder="Nhập số tiền trong hũ">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label for="" class="il-gray fs-14 fw-500 mb-10">Tiền Trừ Hũ</label>
+                                            <input type="number" class="form-control ih-medium ip-light"
+                                                name="jackpot-amount" value="{{ settings.jackpot.amount }}"
+                                                placeholder="Nhập số tiền trừ mỗi lần khi tham gia hũ">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label for="" class="il-gray fs-14 fw-500 mb-10">Mã Nổ Hũ</label>
+                                            <input type="text" class="form-control ih-medium ip-light"
+                                                name="jackpot-numberTLS"
+                                                value="{{ joinArray settings.jackpot.numberTLS ' - ' }}"
+                                                placeholder="Nhập list mã trúng thưởng nổ hũ, mỗi số cách nhau bằng dấu -">
+                                        </div>
+                                    </div>
+                                    {{!-- Kết Thúc Nổ Hũ --}}
+
+
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label for="" class="il-gray fs-14 fw-500 mb-10">Hoàn Tiền Bill Thua</label>
+                                            <select name="refundBill-status" class="form-control ih-medium ip-light">
+                                                {{#select settings.refundBill.status }}
+                                                <option value="active">Có</option>
+                                                <option value="close">Không</option>
+                                                {{/select }}
+                                            </select>
+                                        </div>
+                                    </div>
+                                    {{!-- Kết Thúc Kiểm Tra Mã --}}
+                                    {{!-- Bắt Đầu Hoàn Tiền Bill --}}
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label for="" class="il-gray fs-14 fw-500 mb-10">Bill tối thiểu
+                                                [REFUND_BILL]</label>
+                                            <input type="number" class="form-control ih-medium ip-light"
+                                                name="refundBill-min" value="{{ settings.refundBill.min }}"
+                                                placeholder="Nhập tiền cược tối thiểu để đủ điều kiện hoàn">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label for="" class="il-gray fs-14 fw-500 mb-10">Phần Trăm
+                                                [REFUND_BILL]</label>
+                                            <input type="text" class="form-control ih-medium ip-light"
+                                                name="refundBill-percent" value="{{ settings.refundBill.percent }}"
+                                                placeholder="Nhập số phần trăm hoàn tiền">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label for="" class="il-gray fs-14 fw-500 mb-10">Bill tối đa
+                                                [REFUND_BILL]</label>
+                                            <input type="number" class="form-control ih-medium ip-light"
+                                                name="refundBill-max" value="{{ settings.refundBill.max }}"
+                                                placeholder="Số tiền hoàn tối đa, sau khi chia %">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="" class="il-gray fs-14 fw-500 mb-10" data-bs-toggle="tooltip"
+                                                data-bs-placement="top" data-bs-html="true"
+                                                data-bs-original-title="- Đầu Tiên: Chỉ hoàn tiền đơn chơi đầu tiên nếu thua<br>- Tất Cả: Tất cả đơn nếu có đơn thua đầu tiên thì sẽ hoàn tiền, đánh đơn đầu thắng đơn sau thua vẫn hoàn.">Loại
+                                                [REFUND_BILL]</label>
+                                            <select name="refundBill-typeAction"
+                                                class="form-control ih-medium ip-light">
+                                                {{#select settings.refundBill.typeAction }}
+                                                <option value="one">Đầu Tiên</option>
+                                                <option value="all">Tất Cả</option>
+                                                {{/select }}
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="" class="il-gray fs-14 fw-500 mb-10">Thông Báo POPUP</label>
+                                            <select name="notification-status" class="form-control ih-medium ip-light">
+                                                {{#select settings.notification.status }}
+                                                <option value="active">Bật</option>
+                                                <option value="close">Tắt</option>
+                                                {{/select }}
+                                            </select>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="" class="il-gray fs-14 fw-500 mb-10">Chữ Chạy
+                                                [THEME_SITE]</label>
+                                            <textarea class="form-control" name="themeSite-notiRun" rows="3"
+                                                placeholder="Nhập nội dung chữ chạy">{{
+                                                    settings.themeSite.notiRun
+                                                    }}</textarea>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="" class="il-gray fs-14 fw-500 mb-10">Màu Sắc <span
+                                                    class="text-primary hand"
+                                                    id="defaultColor">[SET_DEFAULT]</span></label>
+                                            <input type="color" class="form-control ih-medium ip-light"
+                                                name="themeSite-mainColor" value="{{ settings.themeSite.mainColor }}">
+                                        </div>
+                                    </div>
+
+                                    {{!-- Kết Thúc Theme Site --}}
+
+                                    <div class="text-center">
+                                        <button class="btn btn-success btn-block"><i class="fas fa-save"></i>
+                                            Lưu</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div><!-- [ site settings ] end -->
+            </div><!-- [ Main Content ] end -->
+        </div>
+    </div>
+    {{>foot}}
+</body>
+<script>
+    $('body').on('submit', '#formSetting', function (e) {
+        e.preventDefault();
+        let data = $(this).serialize();
+
+        $('#formSetting>button').html(`<div class="dm-spin-dots spin-sm"><span class="spin-dot badge-dot dot-primary"></span><span class="spin-dot badge-dot dot-primary"></span><span class="spin-dot badge-dot dot-primary"></span><span class="spin-dot badge-dot dot-primary"></span></div>`);
+        axios.post('#', data)
+            .then((result) => {
+                let response = result.data;
+                response.success ? swal('Thông Báo', response.message, 'success') && setTimeout(() => window.location.reload(), 1500) : swal('Thông Báo', response.message, 'error');
+            })
+            .catch((err) => {
+                swal('Thông Báo', err.message || err, 'error');
+            })
+            .finally(() => $('#formSetting>button').html(`<i class="fas fa-save"></i> Lưu`));
+    })
+</script>
+
+</html>

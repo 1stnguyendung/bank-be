@@ -1,0 +1,277 @@
+{{>head}}
+
+<body data-pc-preset="preset-1" data-pc-sidebar-theme="dark" data-pc-sidebar-caption="true" data-pc-direction="ltr"
+    data-pc-theme="light">
+    <div class="loader-bg">
+        <div class="pc-loader">
+            <div class="loader-fill"></div>
+        </div>
+    </div>
+    {{>nav}}
+
+    <div class="pc-container">
+        <div class="pc-content">
+            <div class="page-header">
+                <div class="page-block">
+                    <div class="row align-items-center justify-content-between">
+                        <div class="col-sm-auto">
+                            <div class="page-header-title">
+                                <h5 class="mb-0">{{ title }}</h5>
+                            </div>
+                        </div>
+                        <div class="col-sm-auto">
+                            <ul class="breadcrumb">
+                                <li class="breadcrumb-item">
+                                    <a href="/"><i class="ph-duotone ph-house"></i></a>
+                                </li>
+                                <li class="breadcrumb-item" aria-current="page">{{ title }}</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="card table-card card-border-none user-profile-list">
+                        <form>
+                            <div class="row g-4">
+                                <div class="col-md-4">
+                                    <input class="mb-0 form-control form-control-sm" name="search" type="text"
+                                        placeholder="Tìm kiếm">
+                                </div>
+                                <div class="col-md-4">
+                                    <select name="phone" class="mb-3 form-select form-select-sm">
+                                        <option value="">Tất Cả</option>
+                                        {{#each phones}}
+                                        <option value="{{ this.phone }}">{{ this.phone }} - {{ numberFormat
+                                            this.amount
+                                            }}đ</option>
+                                        {{/each}}
+                                    </select>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group mb-3">
+                                        <button class="btn btn-primary btn-sm w-100">
+                                            <i class="fa fa-search" aria-hidden="true"></i> Tìm
+                                            kiếm</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="table-responsive">
+                        {{!-- <div class="datatable-dropdown">
+                            <label>
+                                <select class="datatable-selector">
+                                    <option value="5" selected="">5</option>
+                                    <option value="10">10</option>
+                                    <option value="15">15</option>
+                                    <option value="20">20</option>
+                                    <option value="25">25</option>
+                                </select> entries per page
+                            </label>
+                        </div>
+                        <div class="datatable-search">
+                            <input class="datatable-input" placeholder="Search..." type="search"
+                                title="Search within table" aria-controls="pc-dt-simple">
+                        </div> --}}
+
+                        <table class="table table-striped" id="pc-dt-simple">
+                            <thead>
+                                <th>
+                                    <span class="text-danger action-more" data-icon-action="delete" data-id="all"
+                                        data-bs-toggle="tooltip" data-bs-placement="top"
+                                        data-bs-original-title="Xóa tất cả">
+                                        <i class="fa fa-times-circle" aria-hidden="true"></i>
+                                    </span>
+                                </th>
+                                <th>Mã Giao Dịch</th>
+                                <th>Người Chuyển</th>
+                                <th>Người Nhận</th>
+                                <th>Trước GD {{{ tableSort originalUrl.search 'firstMoney' _sort }}}
+                                </th>
+                                <th>Số Tiền {{{ tableSort originalUrl.search 'amount' _sort }}}</th>
+                                <th>Sau GD {{{ tableSort originalUrl.search 'lastMoney' _sort }}}</th>
+                                <th>Nội Dung</th>
+                                <th>Thời Gian {{{ tableSort originalUrl.search 'updatedAt' _sort }}}
+                                </th>
+                            </thead>
+                            <tbody>
+                                {{#each list}}
+                                <tr class="edit-one {{#ifCond this.action.length '>=' 1}}tr-warning{{/ifCond}}"
+                                    data-id="{{ this._id }}">
+                                    <td>
+                                        <div class="d-flex gap-2">
+                                            <span class="text-danger action-more" data-icon-action="delete"
+                                                data-id="{{ this._id }}" data-bs-toggle="tooltip"
+                                                data-bs-placement="top" data-bs-original-title="Xóa">
+                                                <i class="ti ti-trash f-18" aria-hidden="true"></i>
+                                            </span>
+                                        </div>
+                                    </td>
+                                    <td><span class="badges badge-secondary">{{ this.transId }}</span></td>
+                                    <td>{{ this.phone }}</td>
+                                    <td>{{ this.receiver }}</td>
+                                    <td>{{ numberFormat this.firstMoney }}đ</td>
+                                    <td>{{ numberFormat this.amount }}đ</td>
+                                    <td>{{ numberFormat this.lastMoney }}đ</td>
+                                    <td><textarea class="form-control">{{ this.comment }}</textarea></td>
+                                    <td>{{ formatDate this.updatedAt 'DD-MM-YYYY HH:mm:ss'}}</td>
+                                </tr>
+                                {{else}}
+                                <tr>
+                                    <td colspan="24">
+                                        <div class="dm-empty text-center">
+                                            <div class="dm-empty__image">
+                                                <img src="/assets/images/1.png" alt="Rỗng">
+                                            </div>
+                                            <div class="dm-empty__text">
+                                                <p class="">Không có dữ liệu !</p>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                {{/each}}
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="datatable-bottom">
+                        <div class="col-md-2">
+                            <select name="perPage" class="mb-3 form-select form-select-sm"
+                                data-query="{{ checkQuery originalUrl.search 'perPage' }}">
+                                {{#select perPage }}
+                                <option value="10">10/page</option>
+                                <option value="20">20/page</option>
+                                <option value="40">40/page</option>
+                                <option value="60">60/page</option>
+                                <option value="100">100/page</option>
+                                <option value="200">200/page</option>
+                                <option value="500">500/page</option>
+                                {{/select}}
+                            </select>
+                            </select>
+                        </div>
+                        <nav class="datatable-pagination">
+                            <ul class="datatable-pagination-list">
+                                <li class="dm-pagination__item">
+                                    {{#paginate pagination type="previous"}}
+                                    <a href="{{ baseURL }}?{{#if query }}{{ query }}&page={{n}}{{else}}page={{n}}{{/if}}"
+                                        class="datatable-pagination-list-item datatable-hidden datatable-{{#if disabled}}disabled{{/if}}">
+                                        <span class="ti ti-arrow-left"></span>
+                                    </a>
+                                    {{/paginate}}
+                                    {{#paginate pagination type="middle" limit=pagination.limit}}
+                                    <a href="{{ baseURL }}?{{#if query }}{{ query }}&page={{n}}{{else}}page={{n}}{{/if}}"
+                                        class="datatable-pagination-list-item datatable-{{#if active}}active{{/if}}"><span
+                                            class="datatable-pagination-list-item-link">{{n}}</span>
+                                    </a>
+                                    {{/paginate}}
+                                    {{#paginate pagination type="next"}}
+                                    <a href="{{ baseURL }}?{{#if query }}{{ query }}&page={{n}}{{else}}page={{n}}{{/if}}"
+                                        class="datatable-pagination-list-item datatable-hidden datatable-{{#if disabled}}disabled{{/if}}">
+                                        <span class="ti ti-arrow-right"></span>
+                                    </a>
+                                    {{/paginate}}
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {{>foot}}
+</body>
+<script>
+    let urlDoamin = '{{urlCurl}}';
+
+    $('body').on('click', '.action-more', function (e) {
+        let _this = $(this);
+
+        console.log(_this);
+        let action = _this.data('icon-action');
+        let id = _this.data('id');
+
+        switch (action) {
+            case 'delete':
+                if (id === 'all') {
+                    Swal.fire({
+                        icon: 'info',
+                        title: "Bạn chắc chắn muốn xóa tất cả không?",
+                        showDenyButton: true,
+                        confirmButtonText: "Đồng ý",
+                        denyButtonText: "Đóng"
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+
+                            let config = {
+                                method: 'post',
+                                maxBodyLength: Infinity,
+                                url: urlDoamin + '/history/game/' + action,
+                                headers: {
+                                    'Content-Type': 'application/json'
+                                },
+                                data: {
+                                    id: id
+                                }
+                            };
+
+                            axios.request(config)
+                                .then((response) => {
+                                    response.data.status ? swal('Thông báo', response.data.message, 'success') && setTimeout(() => window.location.reload(), 1500) : swal('Thông báo', response.data.message, 'error');
+                                })
+                                .catch((err) => {
+                                    swal('Thông Báo', err.message || err, 'error');
+
+                                });
+
+                        } else if (result.isDenied) {
+                            Swal.fire("Đã hủy thao tác", "", "info");
+                        }
+                    });
+                } else {
+                    Swal.fire({
+                        icon: 'info',
+                        title: "Bạn chắc chắn muốn xóa #" + id + ' không?',
+                        showDenyButton: true,
+                        confirmButtonText: "Đồng ý",
+                        denyButtonText: "Đóng"
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+
+                            let config = {
+                                method: 'post',
+                                maxBodyLength: Infinity,
+                                url: urlDoamin + '/history/game/' + action,
+                                headers: {
+                                    'Content-Type': 'application/json'
+                                },
+                                data: {
+                                    id: id
+                                }
+                            };
+
+                            axios.request(config)
+                                .then((response) => {
+                                    response.data.status ? swal('Thông báo', response.data.message, 'success') && setTimeout(() => window.location.reload(), 1500) : swal('Thông báo', response.data.message, 'error');
+                                })
+                                .catch((err) => {
+                                    swal('Thông Báo', err.message || err, 'error');
+
+                                });
+
+                        } else if (result.isDenied) {
+                            Swal.fire("Đã hủy thao tác", "", "info");
+                        }
+                    });
+                }
+                break;
+            default:
+                swal('Thông Báo', 'Thao tác không hợp lệ!', 'warning');
+                break;
+        }
+    })
+</script>
+
+</html>

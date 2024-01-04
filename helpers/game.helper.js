@@ -1,68 +1,10 @@
 
 const gameHelper = {
-
+    
     game: async() => {
         let game = [
             { 
                 id: 1, 
-                name: 'Tài xỉu', 
-                gameType: 'taixiu',
-                rate: Math.floor(Math.random() * 99999999), 
-                data: [{
-                    "name": "Tài",
-                    "content": "T",
-                    "numberTLS": [
-                        "5",
-                        "6",
-                        "7",
-                        "8"
-                    ],
-                    "amount": 2.6,
-                },
-                {
-                    "name": "Xỉu",
-                    "content": "X",
-                    "numberTLS": [
-                        "1",
-                        "2",
-                        "3",
-                        "4"
-                    ],
-                    "amount": 2.6,
-                }]
-            },
-            { 
-                id: 2, 
-                name: 'Tài xỉu 2', 
-                gameType: 'taixiu2',
-                rate: Math.floor(Math.random() * 99999999), 
-                data: [{
-                    "name": "Tài",
-                    "content": "T2",
-                    "numberTLS": [
-                        "5",
-                        "6",
-                        "7",
-                        "8",
-                        "9"
-                    ],
-                    "amount": 1.9,
-                },
-                {
-                    "name": "Xỉu",
-                    "content": "X2",
-                    "numberTLS": [
-                        "0",
-                        "1",
-                        "2",
-                        "3",
-                        "4"
-                    ],
-                    "amount": 1.9,
-                }]
-            },
-            { 
-                id: 3, 
                 name: 'Chẵn lẻ', 
                 gameType: 'chanle',
                 rate: Math.floor(Math.random() * 99999999), 
@@ -90,7 +32,7 @@ const gameHelper = {
                 }]
             },
             { 
-                id: 4, 
+                id: 2, 
                 name: 'Chẵn lẻ 2', 
                 gameType: 'chanle2',
                 rate: Math.floor(Math.random() * 99999999), 
@@ -117,6 +59,64 @@ const gameHelper = {
                         "9"
                     ],
                     "amount": 2.6,
+                }]
+            },
+            { 
+                id: 3, 
+                name: 'Tài xỉu', 
+                gameType: 'taixiu',
+                rate: Math.floor(Math.random() * 99999999), 
+                data: [{
+                    "name": "Tài",
+                    "content": "T",
+                    "numberTLS": [
+                        "5",
+                        "6",
+                        "7",
+                        "8"
+                    ],
+                    "amount": 2.6,
+                },
+                {
+                    "name": "Xỉu",
+                    "content": "X",
+                    "numberTLS": [
+                        "1",
+                        "2",
+                        "3",
+                        "4"
+                    ],
+                    "amount": 2.6,
+                }]
+            },
+            { 
+                id: 4, 
+                name: 'Tài xỉu 2', 
+                gameType: 'taixiu2',
+                rate: Math.floor(Math.random() * 99999999), 
+                data: [{
+                    "name": "Tài",
+                    "content": "T2",
+                    "numberTLS": [
+                        "5",
+                        "6",
+                        "7",
+                        "8",
+                        "9"
+                    ],
+                    "amount": 1.9,
+                },
+                {
+                    "name": "Xỉu",
+                    "content": "X2",
+                    "numberTLS": [
+                        "0",
+                        "1",
+                        "2",
+                        "3",
+                        "4"
+                    ],
+                    "amount": 1.9,
                 }]
             },
             { 
@@ -173,12 +173,34 @@ const gameHelper = {
                     "content": "H3",
                     "numberTLS": [
                         "3",
-                        "5",
-                        "7",
-                        "9"
                     ],
                     "amount": 3,
-                }]
+                },
+                {
+                    "name": "H3",
+                    "content": "H3",
+                    "numberTLS": [
+                        "5",
+                    ],
+                    "amount": 5,
+                },
+                {
+                    "name": "H3",
+                    "content": "H3",
+                    "numberTLS": [
+                        "7",
+                    ],
+                    "amount": 7,
+                },
+                {
+                    "name": "H3",
+                    "content": "H3",
+                    "numberTLS": [
+                        "9",
+                    ],
+                    "amount": 9,
+                }
+            ]
             },
         ];
         return game

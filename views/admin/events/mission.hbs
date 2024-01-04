@@ -47,42 +47,58 @@
                                                             <i class="fa fa-plus-circle" aria-hidden="true"></i>
                                                         </span>
                                                     </th>
+                                                    <th>Level</th>
                                                     <th>Điều kiện</th>
                                                     <th>Phần thưởng</th>
                                                 </thead>
-                                                <tbody>
-                                                    <tr>
-                                                        <td>1</td>
+                                                <tbody class="table-row">
+                                                    {{#each list}}
+                                                    <tr data-id="{{ this._id }}">
                                                         <td>
-                                                            <input type="text" class="form-control" value="1000000">
+                                                            <div class="d-flex gap-2">
+                                                                <span data-row="edit" data-id="{{ this._id }}"
+                                                                    class="text-success">
+                                                                    <i class="fa fa-edit text-success"></i>
+                                                                </span>
+                                                                <span class="text-danger" data-row="delete"
+                                                                    data-id="{{ this._id }}">
+                                                                    <i class="ti ti-trash f-18" aria-hidden="true"></i>
+                                                                </span>
+                                                            </div>
                                                         </td>
                                                         <td>
-                                                            <input type="text" class="form-control" value="1000000">
+                                                            <b class="level">{{ this.level }}</b>
+                                                            <input type="text" name="level" class="form-control hide"
+                                                                value="{{ this.level }}">
+                                                        </td>
+                                                        <td>
+                                                            <b class="min">{{ numberFormat this.amount }}</b>
+                                                            <input type="text" name="min" class="form-control hide"
+                                                                value="{{ this.amount }}">
+                                                        </td>
+                                                        <td>
+                                                            <b class="gift">{{ numberFormat this.bonus }}</b>
+                                                            <input type="text" name="gift" class="form-control hide"
+                                                                value="{{ this.amount }}">
                                                         </td>
                                                     </tr>
-                                                    <tr>
-                                                        <td>2</td>
-                                                        <td>
-                                                            <input type="text" class="form-control" value="1000000">
-                                                        </td>
-                                                        <td>
-                                                            <input type="text" class="form-control" value="1000000">
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>3</td>
-                                                        <td>
-                                                            <input type="text" class="form-control" value="1000000">
-                                                        </td>
-                                                        <td>
-                                                            <input type="text" class="form-control" value="1000000">
+                                                    {{else}}
+                                                    <tr class="empty">
+                                                        <td colspan="24">
+                                                            <div class="dm-empty text-center">
+                                                                <div class="dm-empty__image">
+                                                                    <img src="/assets/images/1.png" alt="Rỗng">
+                                                                </div>
+                                                                <div class="dm-empty__text">
+                                                                    <p class="">Không có dữ liệu !</p>
+                                                                </div>
+                                                            </div>
                                                         </td>
                                                     </tr>
+                                                    {{/each}}
                                                 </tbody>
                                             </table>
                                         </div>
-
-                                        <button type="submit" class="btn btn-primary mb-4">Submit</button>
                                     </form>
                                 </div>
                             </div>
@@ -95,15 +111,161 @@
     {{>foot}}
 </body>
 <script>
-    var $TABLE = $('#table');
-    var $BTN = $('#export-btn');
-    $('.table-add').click(function () {
-        var $clone = $TABLE.find('tr.hide').clone(true).removeClass('hide table-line');
-        $TABLE.find('table').append($clone + true);
+    let urlDoamin = '{{urlCurl}}';
+    let elmWrapper = $('table tbody');
+
+    $('body').on('click', 'span[data-row="add"]', function (e) {
+
+        $('table tbody tr.empty').addClass('hide');
+
+        var data_row = Date.now();
+        let rowRender = `<tr data-id="${data_row}"><td><div class="d-flex gap-2"><span data-row="confirm" data-id="${data_row}" class="text-success"><i class="fa fa-plus-circle text-success"></i></span><span class="text-danger" data-row="remove" data-id="${data_row}"><i class="ti ti-trash f-18" aria-hidden="true"></i></span></div></td><td><input type="text" name="level" class="form-control" value=""></td><td><input type="text" name="min" class="form-control" value=""></td><td><input type="text" name="gift" class="form-control" value=""></td></tr>`;
+
+        elmWrapper.prepend(rowRender);
+
+    }).on('click', 'span[data-row="confirm"]', function (e) {
+        var dataId = $(this).data('id');
+        var level = $(`tr[data-id="${dataId}"] input[name="level"]`).val();
+        var min = $(`tr[data-id="${dataId}"] input[name="min"]`).val();
+        var gift = $(`tr[data-id="${dataId}"] input[name="gift"]`).val();
+
+        let data = JSON.stringify({
+            min,
+            gift,
+            level
+        });
+
+        let config = {
+            method: 'post',
+            maxBodyLength: Infinity,
+            url: urlDoamin + '/mission/add',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            data: data
+        };
+
+        axios.request(config)
+            .then((response) => {
+                response.data.status ? swal('Thông báo', response.data.message, 'success') : swal('Thông báo', response.data.message, 'error');
+            })
+            .catch((err) => {
+                swal('Thông Báo', err.message || err, 'error');
+
+            });
+
+    }).on('click', 'span[data-row="remove"]', function (e) {
+        var dataId = $(this).data('id');
+        $(this).closest(`tr[data-id="${dataId}`).remove();
+
+        var rowCount = 0;
+
+        $(`table tbody tr.show`).each(function () {
+            rowCount++;
+        });
+
+        if (rowCount <= 0) {
+            $('table tbody tr.empty').removeClass('hide');
+        }
+
+        console.log(rowCount);
+    }).on('click', 'span[data-row="edit"]', function (e) {
+        var dataId = $(this).data('id');
+
+        $(`tr[data-id="${dataId}"] input`).removeClass('hide');
+        $(`tr[data-id="${dataId}"] b`).addClass('hide');
+    }).on('dblclick', 'span[data-row="edit"]', function (e) {
+        var dataId = $(this).data('id');
+
+        var level = $(`tr[data-id="${dataId}"] input[name="level"]`).val();
+        var min = $(`tr[data-id="${dataId}"] input[name="min"]`).val();
+        var gift = $(`tr[data-id="${dataId}"] input[name="gift"]`).val();
+
+        let data = JSON.stringify({
+            min,
+            gift,
+            level,
+            id: dataId
+        });
+
+
+        let config = {
+            method: 'post',
+            maxBodyLength: Infinity,
+            url: urlDoamin + '/mission/update',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            data: data
+        };
+
+        axios.request(config)
+            .then((response) => {
+                if (response.data.status) {
+                    $(`tr[data-id="${dataId}"] input`).addClass('hide');
+                    $(`tr[data-id="${dataId}"] b`).removeClass('hide');
+
+                    swal('Thông báo', response.data.message, 'success')
+
+
+                    $(`tr[data-id="${dataId}"] input[name="level"]`).val(level);
+                    $(`tr[data-id="${dataId}"] input[name="min"]`).val(min);
+                    $(`tr[data-id="${dataId}"] input[name="gift"]`).val(gift);
+
+
+                    $(`tr[data-id="${dataId}"] b.level`).html(Intl.NumberFormat('en-US').format(level));
+                    $(`tr[data-id="${dataId}"] b.min`).html(Intl.NumberFormat('en-US').format(min));
+                    $(`tr[data-id="${dataId}"] b.gift`).html(Intl.NumberFormat('en-US').format(gift));
+
+                } else {
+                    swal('Thông báo', response.data.message, 'error')
+                }
+            })
+            .catch((err) => {
+                swal('Thông Báo', err.message || err, 'error');
+
+            });
+
+
+    }).on('click', 'span[data-row="delete"]', function (e) {
+        var dataId = $(this).data('id');
+
+        Swal.fire({
+            icon: 'info',
+            title: "Bạn chắc chắn muốn xóa #" + dataId + ' không?',
+            showDenyButton: true,
+            confirmButtonText: "Đồng ý",
+            denyButtonText: "Đóng"
+        }).then((result) => {
+            if (result.isConfirmed) {
+
+                let config = {
+                    method: 'post',
+                    maxBodyLength: Infinity,
+                    url: urlDoamin + '/mission/delete',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    data: {
+                        id: dataId
+                    }
+                };
+
+                axios.request(config)
+                    .then((response) => {
+                        response.data.status ? swal('Thông báo', response.data.message, 'success') && setTimeout(() => window.location.reload(), 1500) : swal('Thông báo', response.data.message, 'error');
+                    })
+                    .catch((err) => {
+                        swal('Thông Báo', err.message || err, 'error');
+
+                    });
+
+            } else if (result.isDenied) {
+                Swal.fire("Đã hủy thao tác", "", "info");
+            }
+        });
     });
 
-    $('body').on('click', 'span[data-row="add"]>span', function (e) {
-    }
 </script>
 
 </html>

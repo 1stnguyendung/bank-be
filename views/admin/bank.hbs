@@ -97,7 +97,7 @@
                                 <th>Nhận Ngày</th>
                                 <th>Chuyển Tháng</th>
                                 <th>Nhận Tháng</th>
-                                
+
                                 <th>Cập Nhập {{{ tableSort originalUrl.search 'updatedAt' _sort }}}
                                 </th>
                                 <th>Thời Gian {{{ tableSort originalUrl.search 'createdAt' _sort }}}
@@ -130,7 +130,8 @@
                                     <td>{{ numberFormat this.limitMonth }}</td>
                                     <td>{{{ momoStatus this.status }}}</td>
                                     <td>
-                                        <textarea style="width: 100px;" class="form-control">{{ this.description }}</textarea>
+                                        <textarea style="width: 100px;"
+                                            class="form-control">{{ this.description }}</textarea>
                                     </td>
                                     <td>{{ numberFormat this.amountDay }}đ</td>
                                     <td>{{ numberFormat this.receiptDay }}đ</td>
@@ -299,7 +300,7 @@
 
                             axios.request(config)
                                 .then((response) => {
-                                    response.status ? swal('Thông báo', response.message, 'success') && setTimeout(() => window.location.reload(), 1500) : swal('Thông báo', response.message, 'error');
+                                    response.data.status ? swal('Thông báo', response.data.message, 'success') && setTimeout(() => window.location.reload(), 1500) : swal('Thông báo', response.data.message, 'error');
                                 })
                                 .catch((err) => {
                                     swal('Thông Báo', err.message || err, 'error');

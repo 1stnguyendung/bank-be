@@ -104,7 +104,6 @@ const settingSchema = new mongoose.Schema({
             type: String,
             default: `- Thật tuyệt vời ! Mỗi ngày chỉ cần chơi trên <b class="text-success">CLMM.VN</b> chắc chắn bạn sẽ nhận được tiền. <br>- Khi chơi đủ số tiền (ko cần biết thắng thua) chắc chắn sẽ nhận được tiền. <br>- Hãy nhập số điện thoại của bạn vào mục bên trên để kiểm tra đã chơi bao nhiêu nhé.<br>- Khi chơi đủ mốc tiền, các bạn ấn vào nhận thưởng để nhận được các mốc như sau:`
         },
-        data: Array
     },
     topData: {
         status: {

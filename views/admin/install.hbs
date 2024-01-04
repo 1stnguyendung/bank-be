@@ -1,0 +1,255 @@
+{{>head}}
+
+<body data-pc-preset="preset-1" data-pc-sidebar-theme="dark" data-pc-sidebar-caption="true" data-pc-direction="ltr"
+    data-pc-theme="light">
+    <div class="loader-bg">
+        <div class="pc-loader">
+            <div class="loader-fill"></div>
+        </div>
+    </div>
+    {{>nav}}
+
+    <div class="pc-container">
+        <div class="pc-content">
+            <div class="page-header">
+                <div class="page-block">
+                    <div class="row align-items-center justify-content-between">
+                        <div class="col-sm-auto">
+                            <div class="page-header-title">
+                                <h5 class="mb-0">{{ title }}</h5>
+                            </div>
+                        </div>
+                        <div class="col-sm-auto">
+                            <ul class="breadcrumb">
+                                <li class="breadcrumb-item">
+                                    <a href="/"><iclass="ph-duotone ph-house"></i></a>
+                                </li>
+                                <li class="breadcrumb-item" aria-current="page">{{ title }}</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5>Cài đặt</h5>
+                        </div>
+                        {{#if token}}
+                        <div class="card-body">
+                            <form action="install/token" method="post" class="form-axios">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="form-group">
+                                            <label class="form-label">Token:</label>
+                                            <input type="text" class="form-control" name="token"
+                                                placeholder="Nhập token setup....">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <button type="submit" class="btn btn-primary btn-default w-100">
+                                            Thêm
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        {{/if}}
+                        {{#if user}}
+                        <div class="card-body">
+                            <form action="install/users" method="post" class="form-axios">
+                                <div class="row g-3">
+                                    <div class="col-lg-4">
+                                        <div class="form-group">
+                                            <label class="form-label">Họ Và Tên:</label>
+                                            <input type="text" class="form-control" name="name"
+                                                placeholder="Nhập tên của bạn">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <div class="form-group">
+                                            <label class="form-label">Tên đăng nhập:</label>
+                                            <input type="text" class="form-control" name="username"
+                                                placeholder="Nhập tên đăng nhập">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <div class="form-group"><label class="form-label">Mật Khẩu:</label>
+                                            <div class="input-group">
+                                                <span class="input-group-text"><i class="feather icon-lock"></i></span>
+                                                <input type="text" class="form-control" name="password"
+                                                    placeholder="Nhập mật khẩu đăng nhập....">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <button type="submit"
+                                        class="btn btn-primary btn-default w-100 btn-squared text-capitalize lh-normal px-50 signIn-createBtn">
+                                        Thêm
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                        {{/if}}
+                        {{#if setting}}
+                        <div class="card-body">
+                            <form action="install/settings" method="post" class="form-axios">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="" class="il-gray fs-14 fw-500 mb-10">Tên
+                                                Website</label>
+                                            <input type="text" class="form-control ih-medium ip-light" name="nameSite"
+                                                value="THUECLMM.COM" placeholder="Nhập tên website của bạn">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="" class="il-gray fs-14 fw-500 mb-10">Tiêu Đề</label>
+                                            <input type="text" class="form-control ih-medium ip-light"
+                                                name="defaultTitle"
+                                                value="Hệ Thống Mini Game Chẳn Lẻ Momo Uy Tín - Tự Động"
+                                                placeholder="Nhập tiêu đề website">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="" class="il-gray fs-14 fw-500 mb-10">Icon
+                                                Website</label>
+                                            <input type="text" class="form-control ih-medium ip-light" name="favicon"
+                                                value="../themes/images/logo.png"
+                                                placeholder="Nhập link icon website của bạn">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="" class="il-gray fs-14 fw-500 mb-10">Logo
+                                                Website</label>
+                                            <input type="text" class="form-control ih-medium ip-light" name="logo"
+                                                value="../themes/images/logo-momo.png"
+                                                placeholder="Nhập link logo website của bạn">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="" class="il-gray fs-14 fw-500 mb-10">Thumbnail</label>
+                                            <input type="text" class="form-control ih-medium ip-light" name="thumbnail"
+                                                value="https://file.coin98.com/insights/Vi%CC%81-MOMO.jpg"
+                                                placeholder="Nhập link thumbnail website">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="" class="il-gray fs-14 fw-500 mb-10">Mô Tả</label>
+                                            <textarea class="form-control" name="description" rows="5"
+                                                placeholder="Nhập mô tả website của bạn">Chẵn Lẻ MoMo - Mini game giải trí chẵn lẻ Momo uy tín và hệ thống thanh toán tự động trong 30s, kiếm Tiền Nhanh Chóng chỉ trong 1 nốt nhạc.</textarea>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="" class="il-gray fs-14 fw-500 mb-10">Từ Khóa</label>
+                                            <textarea class="form-control" name="keywords" rows="5"
+                                                placeholder="Nhập từ khóa tìm kiếm website của bạn">MOMO TU DONG, CLMM, CHẴN LẺ MOMO, CHAN LE MOMO, CLTX, CLMM, TÀI XỈU MOMO, chẵn lẻ momo, clmm, chan le momo, Clmm, Chẵn lẻ momo, Chan le momo, clmm, Clmm, cltx, Cltx, clmm me, clmm 10k, chẵn lẻ momo 10k, momo chan le, clmm 247, clmm ai, clmm 5k, clmm365, clmm247, clmm momo</textarea>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="" class="il-gray fs-14 fw-500 mb-10">Header
+                                                Script</label>
+                                            <textarea class="form-control" name="headerScript" rows="3"
+                                                placeholder="headerScript">{{ settings.headerScript
+                                                            }}</textarea>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="" class="il-gray fs-14 fw-500 mb-10">Footer
+                                                Script</label>
+                                            <textarea class="form-control" name="footerScript" rows="3"
+                                                placeholder="footerScript"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label for="" class="il-gray fs-14 fw-500 mb-10">Số Lượng Hiển
+                                                Thị</label>
+                                            <input type="number" class="form-control ih-medium ip-light"
+                                                name="limitPhone" value="10" placeholder="Nhập số lượng số cần chạy">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label for="" class="il-gray fs-14 fw-500 mb-10">Nội Dung Nạp
+                                                Tiền</label>
+                                            <input type="text" class="form-control ih-medium ip-light"
+                                                name="paymentComment" value="#recharge"
+                                                placeholder="Nhập nội dung nhận biết khi nạp tiền vào số ( thống kê )">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label for="" class="il-gray fs-14 fw-500 mb-10">Nội Dung Rút
+                                                Tiền</label>
+                                            <input type="text" class="form-control ih-medium ip-light"
+                                                name="withdrawComment" value="#recharge"
+                                                placeholder="Nhập nội dung nhận biết khi rút tiền ra khỏi số ( thống kê )">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label for="" class="il-gray fs-14 fw-500 mb-10">Trạng Thái
+                                                Site</label>
+                                            <select name="siteStatus" class="form-control ih-medium ip-light">
+                                                <option value="active">Hoạt Động</option>
+                                                <option value="maintenance">Bảo Trì</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="" class="il-gray fs-14 fw-500 mb-10">Mã Quà
+                                                Tặng</label>
+                                            <select name="giftCode-status" class="form-control ih-medium ip-light">
+                                                <option value="active">Bật</option>
+                                                <option value="close">Tắt</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="" class="il-gray fs-14 fw-500 mb-10">BOT TOKEN
+                                                [TELEGRAM]</label>
+                                            <input type="text" class="form-control ih-medium ip-light"
+                                                name="telegram-token"
+                                                value="5202777113:AAFPmPKSRL8Y_5ZCyVt_YcQOzqZLPGNMdig"
+                                                placeholder="Nhập token bot telegram">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="" class="il-gray fs-14 fw-500 mb-10">CHAT ID
+                                                [TELEGRAM]</label>
+                                            <input type="text" class="form-control ih-medium ip-light"
+                                                name="telegram-chatId" placeholder="Nhập chatId bot telegram">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div
+                                    class="admin__button-group button-group d-flex pt-1 justify-content-md-start justify-content-center">
+                                    <button type="submit"
+                                        class="btn btn-primary btn-default w-100 btn-squared text-capitalize lh-normal px-50 signIn-createBtn">
+                                        Tiến Hành
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                        {{/if}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{>foot}}
+</body>
+
+</html>

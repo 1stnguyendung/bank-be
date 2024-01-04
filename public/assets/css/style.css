@@ -20045,7 +20045,7 @@ pre[class*=language-] > code {
 }
 .pc-sidebar .pc-navbar > .pc-item .pc-submenu .pc-item.pc-trigger > .pc-link, .pc-sidebar .pc-navbar > .pc-item .pc-submenu .pc-item.active > .pc-link {
   font-weight: 500;
-  color: #fff;
+  /* color: #fff; */
 }
 .pc-sidebar .pc-navbar > .pc-item .pc-submenu .pc-item.pc-trigger > .pc-link:after, .pc-sidebar .pc-navbar > .pc-item .pc-submenu .pc-item.active > .pc-link:after, .pc-sidebar .pc-navbar > .pc-item .pc-submenu .pc-item:focus > .pc-link:after, .pc-sidebar .pc-navbar > .pc-item .pc-submenu .pc-item:hover > .pc-link:after {
   background: var(--pc-sidebar-active-color);

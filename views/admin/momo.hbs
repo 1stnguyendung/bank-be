@@ -73,22 +73,6 @@
                         </form>
                     </div>
                     <div class="table-responsive">
-                        {{!-- <div class="datatable-dropdown">
-                            <label>
-                                <select class="datatable-selector">
-                                    <option value="5" selected="">5</option>
-                                    <option value="10">10</option>
-                                    <option value="15">15</option>
-                                    <option value="20">20</option>
-                                    <option value="25">25</option>
-                                </select> entries per page
-                            </label>
-                        </div>
-                        <div class="datatable-search">
-                            <input class="datatable-input" placeholder="Search..." type="search"
-                                title="Search within table" aria-controls="pc-dt-simple">
-                        </div> --}}
-
                         <table class="table table-striped" id="pc-dt-simple">
                             <thead>
                                 <th>
@@ -133,18 +117,29 @@
                                                 data-bs-placement="top" data-bs-original-title="Lấy số dư">
                                                 <i class="ti ti-credit-card f-18" aria-hidden="true"></i>
                                             </span>
+                                            <span class="text-warning action-more" data-icon-action="ref-token"
+                                                data-id="{{ this.phone }}" data-bs-toggle="tooltip"
+                                                data-bs-placement="top" data-bs-original-title="Lấy tại token">
+                                                <i class="ti ti-refresh f-18" aria-hidden="true"></i>
+                                            </span>
+                                            <span class="text-info action-more" data-icon-action="login"
+                                                data-id="{{ this.phone }}" data-bs-toggle="tooltip"
+                                                data-bs-placement="top" data-bs-original-title="Đăng nhập">
+                                                <i class="ti ti-login f-18" aria-hidden="true"></i>
+                                            </span>
                                         </div>
                                     </td>
                                     <td>{{ this.phone }}</td>
                                     <td>{{ this.name }}</td>
-                                    <td>{{ numberFormat this.amount }}</td>
+                                    <td class="amount">{{ numberFormat this.amount }}</td>
                                     <td>{{ numberFormat this.betMin }}</td>
                                     <td>{{ numberFormat this.betMax }}</td>
                                     <td>{{ numberFormat this.limitDay }}</td>
                                     <td>{{ numberFormat this.limitMonth }}</td>
                                     <td>{{{ momoStatus this.status }}}</td>
                                     <td>{{{ loginStatus this.loginStatus }}}</td>
-                                    <td><textarea class="form-control">{{ this.description }}</textarea>
+                                    <td><textarea style="width: 300px;"
+                                            class="form-control">{{ this.description }}</textarea>
                                     </td>
                                     <td>{{ numberFormat this.amountDay }}đ</td>
                                     <td>{{ numberFormat this.receiptDay }}đ</td>
@@ -266,13 +261,14 @@
                     axios.post(urlDoamin + '/momo/balance', { phone })
                         .then((result) => {
                             let response = result.data;
-                            response.success ? swal('Thông Báo', response.message, 'success') && _this.parent().parent().parent().find('td.amount').html(`${Intl.NumberFormat('en-US').format(response.balance)}đ`) : swal('Thông Báo', response.message, 'error');
+                            response.status ? swal('Thông Báo', response.message, 'success') && _this.parent().parent().parent().find('td.amount').html(`${Intl.NumberFormat('en-US').format(response.balance)}`) : swal('Thông Báo', response.message, 'error');
                         })
                         .catch(err => swal('Thông Báo', `Có lỗi xảy ra ${err.message || err}`, 'warning'))
                         .finally(() => _this.prop('disabled', false))
                     break;
                 case 'delete':
                     Swal.fire({
+                        icon: 'info',
                         title: "Bạn chắc chắn muốn xóa #" + phone + ' không?',
                         showDenyButton: true,
                         confirmButtonText: "Đồng ý",
@@ -296,13 +292,53 @@
 
                             axios.request(config)
                                 .then((response) => {
-                                    response.status ? swal('Thông báo', response.message, 'success') && setTimeout(() => window.location.reload(), 1500) : swal('Thông báo', response.message, 'error');
+                                    response.data.status ? swal('Thông báo', response.data.message, 'success') && setTimeout(() => window.location.reload(), 1500) : swal('Thông báo', response.data.message, 'error');
                                 })
                                 .catch((err) => {
                                     swal('Thông Báo', err.message || err, 'error');
 
                                 });
 
+                        } else if (result.isDenied) {
+                            Swal.fire("Đã hủy thao tác", "", "info");
+                        }
+                    });
+                    break;
+                case 'ref-token':
+                    Swal.fire({
+                        icon: 'info',
+                        title: "Bạn chắc chắn muốn lấy lại token #" + phone + ' không?',
+                        showDenyButton: true,
+                        confirmButtonText: "Đồng ý",
+                        denyButtonText: "Đóng"
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            axios.post(urlDoamin + '/momo/ref-token', { phone })
+                                .then((response) => {
+                                    response.data.status ? swal('Thông báo', response.data.message, 'success') && setTimeout(() => window.location.reload(), 1500) : swal('Thông báo', response.data.message, 'error');
+                                })
+                                .catch(err => swal('Thông Báo', `Có lỗi xảy ra ${err.message || err}`, 'warning'))
+                                .finally(() => _this.prop('disabled', false))
+                        } else if (result.isDenied) {
+                            Swal.fire("Đã hủy thao tác", "", "info");
+                        }
+                    });
+                    break;
+                case 'login':
+                    Swal.fire({
+                        icon: 'info',
+                        title: "Bạn chắc chắn muốn đăng nhập #" + phone + ' không?',
+                        showDenyButton: true,
+                        confirmButtonText: "Đồng ý",
+                        denyButtonText: "Đóng"
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            axios.post(urlDoamin + '/momo/login', { phone })
+                                .then((response) => {
+                                    response.data.status ? swal('Thông báo', response.data.message, 'success') && setTimeout(() => window.location.reload(), 1500) : swal('Thông báo', response.data.message, 'error');
+                                })
+                                .catch(err => swal('Thông Báo', `Có lỗi xảy ra ${err.message || err}`, 'warning'))
+                                .finally(() => _this.prop('disabled', false))
                         } else if (result.isDenied) {
                             Swal.fire("Đã hủy thao tác", "", "info");
                         }
@@ -331,9 +367,9 @@
 
                     switch (action) {
                         case 'get-otp':
-                            res.status ? swal('Thông báo', res.message, 'success') && $('.action-add').data('btn-action', 'login') : swal('Thông báo', res.message, 'error');
+                            res.status ? swal('Thông báo', res.message, 'success') && $('.action-add').data('btn-action', 'verfiy') : swal('Thông báo', res.message, 'error');
                             break;
-                        case 'login':
+                        case 'verfiy':
                             res.status ? swal('Thông báo', res.message, 'success') && setTimeout(() => window.location.reload(), 1500) : swal('Thông báo', res.message, 'error');
                             break;
                     }

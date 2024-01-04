@@ -16,6 +16,8 @@ const hbsHelper = require('./helpers/handlebars.helper');
 const os = require('os-utils');
 const gameController = require('./controllers/admin/game.controller');
 const minifyHbs = require('express-hbsmin');
+const moment = require('moment-timezone');
+moment.tz.setDefault('Asia/Ho_Chi_Minh');
 
 db.connectDB();
 
@@ -30,18 +32,19 @@ app.engine('hbs', handlebars.engine({
     helpers: hbsHelper
 }));
 
-// app.use(minifyHbs({
-//     override: true,
-//     exception_url: false,
-//     htmlMinifier: {
-//         removeComments: true,
-//         collapseWhitespace: true,
-//         collapseBooleanAttributes: true,
-//         removeAttributeQuotes: true,
-//         removeEmptyAttributes: true,
-//         minifyJS: true
-//     }
-// }))
+app.use(minifyHbs({
+    override: true,
+    exception_url: false,
+    htmlMinifier: {
+        removeComments: true,
+        collapseWhitespace: true,
+        collapseBooleanAttributes: true,
+        removeAttributeQuotes: true,
+        removeEmptyAttributes: true,
+        minifyJS: true
+    }
+}))
+
 
 const allowedOrigins = ['https://sky86.me'];
 
@@ -74,20 +77,19 @@ process.env.TOKEN_SETUP = uuidv4().toUpperCase();
 console.log(`TOKEN SETUP: ${process.env.TOKEN_SETUP.toUpperCase()}`)
 
 app.use(homeRoute);
-app.use('/admin', adminRoute);
+app.use(process.env.adminPath, adminRoute);
 
 io.on('connection', (socket) => {  
   
-    // Handle events when the table data is updated
-    socket.on('updateTable', (updatedData) => {
-      // Broadcast the updated data to all connected clients
-      io.emit('tableUpdated', updatedData);
-    });
-  
-    socket.on('disconnect', () => {
-      console.log('User disconnected');
-    });
+  // Handle events when the table data is updated
+  socket.on('updateTable', (updatedData) => {
+    // Broadcast the updated data to all connected clients
+    io.emit('tableUpdated', updatedData);
   });
+
+  socket.on('disconnect', () => {
+  });
+});
   
 
 
@@ -96,9 +98,12 @@ server.listen(process.env.PORT || 80, () => console.log(`Server đang hoạt đ�
 
 // Chạy game
 function runGame() {
-    gameController.run()
+    gameController.run();
+    gameController.bill();
+    // gameController.checkMax();
+    gameController.event();
 }
 
 // gameController.run();
-setInterval(runGame, 15000);
+setInterval(runGame, 5000);
 

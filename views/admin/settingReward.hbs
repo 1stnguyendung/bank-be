@@ -9,8 +9,144 @@
     </div>
     {{>nav}}
     <div class="pc-container">
+        <div class="pc-content"><!-- [ breadcrumb ] start -->
+            <div class="page-header">
+                <div class="page-block">
+                    <div class="row align-items-center justify-content-between">
+                        <div class="col-sm-auto">
+                            <div class="page-header-title">
+                                <h5 class="mb-0">Cài đặt trả thưởng</h5>
+                            </div>
+                        </div>
+                        <div class="col-sm-auto">
+                            <ul class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="../navigation/index.html"><i
+                                            class="ph-duotone ph-house"></i></a></li>
+                                <li class="breadcrumb-item"><a href="javascript: void(0)">Pages</a></li>
+                                <li class="breadcrumb-item" aria-current="page">Setting Reward</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div><!-- [ breadcrumb ] end --><!-- [ Main Content ] start -->
+            <div class="row"><!-- [ site settings ] start -->
+                <div class="col-sm-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5>Cài đặt trả thưởng</h5>
+                        </div>
+                        <div class="card-body">
+                            <form action="" method="post" id="formSetting">
+                                <div class="row">
+                                    {{!-- Bắt Đầu Dữ Liệu Cơ Bản --}}
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="" class="il-gray fs-14 fw-500 mb-10">Loại trả thưởng</label>
+                                            <select class="form-control" name="" id="">
+                                                <option value="">Ngưng trả thưởng</option>
+                                                <option value="">Giới hạn</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="" class="il-gray fs-14 fw-500 mb-10">Giới hạn trả thưởng</label>
+                                            <input type="text" class="form-control ih-medium ip-light"
+                                                name="defaultTitle" value="{{ settings.defaultTitle }}"
+                                                placeholder="10">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="" class="il-gray fs-14 fw-500 mb-10">Thời gian trả
+                                                thưởng</label>
+                                            <input type="text" class="form-control ih-medium ip-light" name="favicon"
+                                                value="{{ settings.favicon }}" placeholder="Ví dụ 30s trả 1 lần">
+                                        </div>
+                                    </div>
+
+                                    <hr>
+                                    <h5>Cài đặt nội dung</h5>
+                                    <hr>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="" class="il-gray fs-14 fw-500 mb-10">nội dung trả thưởng</label>
+                                            <input type="text" class="form-control ih-medium ip-light" name="favicon"
+                                                value="{{ settings.favicon }}" placeholder="ACBXYZ">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="" class="il-gray fs-14 fw-500 mb-10">nội dung trả nhiệm vụ
+                                                ngày</label>
+                                            <input type="text" class="form-control ih-medium ip-light" name="favicon"
+                                                value="{{ settings.favicon }}" placeholder="ACBXYZ">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="" class="il-gray fs-14 fw-500 mb-10">nội dung trả
+                                                giftcode</label>
+                                            <input type="text" class="form-control ih-medium ip-light" name="favicon"
+                                                value="{{ settings.favicon }}" placeholder="ACBXYZ">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="" class="il-gray fs-14 fw-500 mb-10">nội dung hoàn tiền</label>
+                                            <input type="text" class="form-control ih-medium ip-light" name="favicon"
+                                                value="{{ settings.favicon }}" placeholder="ACBXYZ">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="" class="il-gray fs-14 fw-500 mb-10">nội dung trả VQMM</label>
+                                            <input type="text" class="form-control ih-medium ip-light" name="favicon"
+                                                value="{{ settings.favicon }}" placeholder="ACBXYZ">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="" class="il-gray fs-14 fw-500 mb-10">nội dung trả thưởng
+                                                MD5</label>
+                                            <input type="text" class="form-control ih-medium ip-light" name="favicon"
+                                                value="{{ settings.favicon }}" placeholder="ACBXYZ">
+                                        </div>
+                                    </div>
+                                    <hr>
+
+                                    {{!-- Kết Thúc Theme Site --}}
+
+                                    <div class="text-center">
+                                        <button class="btn btn-success btn-block"><i class="fas fa-save"></i>
+                                            Lưu</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div><!-- [ site settings ] end -->
+            </div><!-- [ Main Content ] end -->
+        </div>
     </div>
     {{>foot}}
 </body>
+<script>
+    $('body').on('submit', '#formSetting', function (e) {
+        e.preventDefault();
+        let data = $(this).serialize();
+
+        $('#formSetting>button').html(`<div class="dm-spin-dots spin-sm"><span class="spin-dot badge-dot dot-primary"></span><span class="spin-dot badge-dot dot-primary"></span><span class="spin-dot badge-dot dot-primary"></span><span class="spin-dot badge-dot dot-primary"></span></div>`);
+        axios.post('#', data)
+            .then((result) => {
+                let response = result.data;
+                response.success ? swal('Thông Báo', response.message, 'success') && setTimeout(() => window.location.reload(), 1500) : swal('Thông Báo', response.message, 'error');
+            })
+            .catch((err) => {
+                swal('Thông Báo', err.message || err, 'error');
+            })
+            .finally(() => $('#formSetting>button').html(`<i class="fas fa-save"></i> Lưu`));
+    })
+</script>
 
 </html>

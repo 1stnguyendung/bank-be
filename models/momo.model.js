@@ -39,7 +39,7 @@ const momoSchema = mongoose.Schema({
     TOKEN: String,
     dataDevice: Object,
     setupKey: String,
-    phash: String,
+    pHash: String,
     description: String,
     AUTH_TOKEN: String,
     REFRESH_TOKEN: String,

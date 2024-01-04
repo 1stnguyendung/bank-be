@@ -4,6 +4,9 @@ const { v4: uuidv4 } = require("uuid");
 const crypto = require('crypto');
 const moment = require('moment');
 const { assert } = require('console');
+const momoModel = require('../models/momo.model');
+const logHelper = require('../helpers/log.helper');
+const request = require('request');
 
 const API_KEY = "6b5c02943d6246e9854c52cee641cb2b";
 
@@ -24,6 +27,7 @@ const BROWSE_TRANSACTION = 'https://api.momo.vn/transhis/api/transhis/browse';
 const LIST_TRANSACTION = 'https://api.momo.vn/transhis/api/transhis/list';
 const DETAIL_TRANSACTION = 'https://api.momo.vn/transhis/api/transhis/detail';
 const LOGIN_MSG_LINK = 'https://owa.momo.vn/public/login';
+const GENERATE_TOKEN_AUTH_MSG = 'https://api.momo.vn/auth/fast-login/refresh-token';
 
 const checkSum = (phone, type, times, setupKey) => encryptString(`${phone}${times}000000${type}${times / 1000000000000.0}E12`, setupKey)
 
@@ -103,7 +107,6 @@ const doRequestEncryptWithVSign = async(
             if (error && error.response && error.response.status === 401) {
                 // not logined
                 console.log('account not logined');
-                console.log(error.response);
             } else {
                 console.error('[momo] do nothing');
             }
@@ -560,10 +563,12 @@ exports.loginMsg = async(phone, pass, pHash, modelId, deviceToken, setupKey) => 
         agent_id: 0,
         authorization: 'Bearer'
     }
+    
 
     const { data: result } = await axios.post(LOGIN_MSG_LINK, bodyLogin, {
         headers,
     });
+
 
     if (result.errorCode === 0) {
         console.log('Login momo thành công');
@@ -579,7 +584,6 @@ exports.loginMsg = async(phone, pass, pHash, modelId, deviceToken, setupKey) => 
 }
 
 exports.browseTransactions = async(phone, accessToken, agentId, sessionKey, tbid, sessionKeyTracking, START_DATE, END_DATE, requestEncryptKey) => {
-
     try {
 
         const body = {
@@ -688,8 +692,16 @@ exports.sendMoneyMsg = async(phone, password, accessToken, agentId, sessionKey, 
     const initResponse = await doRequestEncryptWithVSign({
       phone, authToken: accessToken, sessionKey, tbid, agentId, sessionKeyTracking
     }, requestEncryptKey, 'https://owa.momo.vn/api/M2MU_INIT', bodyInit, 'M2MU_INIT');
+
+
+    if(!initResponse) {
+        return ({
+            type: 'errorDesc',
+            result: false,
+            message: 'Không thể chuyển tiền'
+        })
+    }
   
-    console.log(initResponse);
   
     if (initResponse.result) {
       // xác thực giao dịch CK
@@ -698,7 +710,11 @@ exports.sendMoneyMsg = async(phone, password, accessToken, agentId, sessionKey, 
       const momoWalletInfo = checkSofInfo.find(a => a.moneySource === 1);
       if (momoWalletInfo.balance < amount) {
         console.log('Không đủ số dư để CK MOMO')
-        throw new Error('Không đủ số dư ví để CK MOMO')
+        return ({
+            type: 'minMoney',
+            result: false,
+            message: 'Không đủ số dư ví để CK MOMO'
+        })
       }
       const time1 = Date.now();
       const checkSumCalculated = checkSum(phone, 'M2MU_CONFIRM', time1, setupKey);
@@ -742,9 +758,7 @@ exports.sendMoneyMsg = async(phone, password, accessToken, agentId, sessionKey, 
           checkSum: checkSumCalculated
         },
       };
-  
-      console.log(JSON.stringify(bodyConfirm));
-  
+    
       const confirmResponse = await doRequestEncryptWithVSign({
         phone, authToken: accessToken, sessionKey, tbid, agentId, sessionKeyTracking,
       }, requestEncryptKey, 'https://owa.momo.vn/api/M2MU_CONFIRM', bodyConfirm, 'M2MU_CONFIRM');
@@ -752,9 +766,259 @@ exports.sendMoneyMsg = async(phone, password, accessToken, agentId, sessionKey, 
       return confirmResponse;
   
     } else {
-      console.log('Khỏi tạo ck momo bị lỗi', initResponse.errorDesc);
-  
+        console.log('Khỏi tạo ck momo bị lỗi', initResponse.errorDesc);
+        return ({
+            type: 'errorDesc',
+            result: false,
+            message: initResponse.errorDesc
+        })
     }
   
   
+}
+
+exports.refreshToken = async (phone) => {
+    try {
+        const dataPhone = await momoModel.findOne({ phone, REFRESH_TOKEN: { $exists: true } });
+
+        if (!dataPhone) {
+            return ({
+                success: false,
+                phone,
+                message: 'Không tìm thấy dữ liệu số điện thoại này hoặc lỗi',
+            })
+        }
+
+        const dataDevice = dataPhone.dataDevice;
+        let times = new Date().getTime();
+
+        let options = {
+            method: 'POST',
+            url: GENERATE_TOKEN_AUTH_MSG,
+            headers: {
+                'userid': phone,
+                'Authorization': 'Bearer ' + dataPhone.REFRESH_TOKEN,
+                'msgtype': 'REFRESH_TOKEN_MSG',
+                'Content-Type': 'application/json'
+            },
+            data: JSON.stringify({
+                user: phone,
+                msgType: "REFRESH_TOKEN_MSG",
+                cmdId: times + "000000",
+                lang: "vi",
+                time: times,
+                channel: "APP",
+                appVer: APP_VER,
+                appCode: APP_CODE,
+                deviceOS: 'ios',
+                buildNumber: 0,
+                appId: "vn.momo.platform",
+                result: true,
+                errorCode: 0,
+                errorDesc: "",
+                momoMsg: {
+                    _class: "mservice.backend.entity.msg.RefreshAccessTokenMsg",
+                    accessToken: dataPhone.AUTH_TOKEN
+                },
+                extra: {
+                    AAID: dataPhone.AAID,
+                    IDFA: "",
+                    TOKEN: dataPhone.TOKEN,
+                    ONESIGNAL_TOKEN: "",
+                    SIMULATOR: "",
+                    MODELID: dataDevice.MODELID,
+                    DEVICE_TOKEN: "",
+                    checkSum: checkSum(phone, 'GENERATE_TOKEN_AUTH_MSG', times, dataPhone.setupKey)
+                }
+            })
+        };
+
+        let { data: response } = await axios(options);
+
+        if (!response.momoMsg.accessToken) {
+            await momoModel.findOneAndUpdate({ phone }, { $set: { loginStatus: 'waitLogin' } }, { upsert: true })
+            let reLogin = await this.loginMsg(phone);
+
+            return reLogin.success ? ({
+                success: true,
+                phone,
+                message: 'Đăng nhập lại thành công!',
+                data: await momoModel.findOne({ phone })
+            }) : reLogin
+        }
+
+        let AUTH_TOKEN = response.momoMsg.accessToken;
+        console.log(AUTH_TOKEN);
+
+        await momoModel.findOneAndUpdate({ phone }, { $set: { AUTH_TOKEN, loginAt: new Date(), loginStatus: 'active' } }, { upsert: true });
+
+        return ({
+            success: true,
+            phone,
+            message: 'refreshToken thành công!',
+            data: await momoModel.findOne({ phone })
+        });
+
+    } catch (err) {
+        await momoModel.findOneAndUpdate({ phone }, { $set: { loginStatus: 'refreshError', description: 'Có lỗi xảy ra ' + err.message || err } }, { upsert: true })
+        await logHelper.create('refreshToken', `refreshToken thất bại!\n* [ ${phone} ]\n* [ Có lỗi xảy ra ${err.message || err} ]`);
+        return ({
+            success: false,
+            phone,
+            message: 'Có lỗi xảy ra ' + err.message || err,
+        });
+    }
+}
+
+exports.checkName = async (phone, receiver) => {
+    try {
+        const times = new Date().getTime();
+        const checkSession = await this.checkSession(phone);
+
+        if (!checkSession.success) {
+            return checkSession;
+        }
+
+        const dataPhone = checkSession.data;
+        const dataDevice = dataPhone.dataDevice;
+        let key = crypto.randomBytes(32).toString("hex").substring(32), requestkey = this.encryptRSA(key, dataPhone.REQUEST_ENCRYPT_KEY);
+
+        let options = {
+            method: 'POST',
+            url: 'https://owa.momo.vn/api/CHECK_USER_PRIVATE',
+            headers: {
+                'requestkey': requestkey,
+                'userid': phone,
+                'msgtype': 'CHECK_USER_PRIVATE',
+                'Authorization': 'Bearer ' + dataPhone.AUTH_TOKEN,
+                'Content-Type': 'application/json'
+            },
+            body: this.encryptString(JSON.stringify({
+                user: phone,
+                msgType: "CHECK_USER_PRIVATE",
+                cmdId: times + "000000",
+                lang: "vi",
+                time: times,
+                channel: "APP",
+                appVer: APP_VER,
+                appCode: APP_CODE,
+                deviceOS: 'ios',
+                buildNumber: 1916,
+                appId: "vn.momo.transfer",
+                result: true,
+                errorCode: 0,
+                errorDesc: "",
+                momoMsg:
+                {
+                    _class: "mservice.backend.entity.msg.LoginMsg",
+                    getMutualFriend: false
+                },
+                extra:
+                {
+                    CHECK_INFO_NUMBER: receiver,
+                    checkSum: checkSum(phone, "CHECK_USER_PRIVATE", times, dataPhone.setupKey)
+                }
+            }), key)
+        };
+
+        return new Promise((resolve, reject) => {
+            request(options, async (err, response, body) => {
+                try {
+                    body = JSON.parse(this.decryptString(body, key));
+                    return body.result ? resolve({
+                        success: true,
+                        message: 'Lấy thành công!',
+                        name: body.extra.NAME
+                    }) : resolve({
+                        success: false,
+                        message: body.errorDesc
+                    })
+                } catch (err) {
+                    return resolve({
+                        success: false,
+                        message: 'Có lỗi xảy ra ' + err.message || err
+                    })
+                }
+            })
+        })
+    } catch (err) {
+        await momoModel.findOneAndUpdate({ phone }, { $set: { description: 'CHECK_USER_PRIVATE| Có lỗi xảy ra ' + err.message || err } })
+        return ({
+            success: false,
+            message: 'Có lỗi xảy ra ' + err.message || err
+        })
+    }
+}
+
+exports.checkSession = async (phone, refresh = false) => {
+    const dataPhone = await momoModel.findOne({ phone, AUTH_TOKEN: { $exists: true } });
+
+    return dataPhone;
+}
+
+exports.getBalance = async (phone) => {
+    let times = new Date().getTime();
+    const checkSession = await this.checkSession(phone);
+
+    const dataPhone = checkSession;
+
+    const dataDevice = dataPhone.dataDevice;
+    let key = crypto.randomBytes(32).toString("hex").substring(32), requestkey = encryptRSA(key, dataPhone.requestEncryptKey);
+
+    let options = {
+        method: 'POST',
+        url: 'https://api.momo.vn/sof/default-money/api',
+       headers: {
+            'requestkey': requestkey,
+            'userid': phone,
+            'msgtype': 'SOF_GET_DEFAULT_MONEY',
+            'Authorization': 'Bearer ' + dataPhone.AUTH_TOKEN,
+           'Content-Type': 'application/json'
+        },
+        body: encryptString(JSON.stringify({
+            user: phone,
+           msgType: "SOF_GET_DEFAULT_MONEY",
+            cmdId: times + "000000",
+            lang: "vi",
+            time: times,
+            channel: "APP",
+            appVer: APP_VER,
+            appCode: APP_CODE,
+            deviceOS: 'ios',
+            buildNumber: 428,
+            appId: "vn.momo.sof",
+            result: true,
+          errorCode: 0,
+            errorDesc: "",
+           momoMsg: {
+                _class: "mservice.backend.entity.msg.ForwardMsg"
+            },
+            extra: {
+                checkSum: checkSum(phone, "SOF_GET_DEFAULT_MONEY", times, dataPhone.setupKey)
+            }
+        }), key)
+    };
+
+
+    return new Promise((resolve, reject) => {
+        request(options, async (err, response, body) => {
+            try {
+                body = JSON.parse(decryptString(body, key));
+                return body.result ? await momoModel.findOneAndUpdate({ phone }, { $set: { amount: body.momoMsg.sofInfo[0].balance } }, { upsert: true }) && resolve({
+                    success: true,
+                    message: 'Lấy thành công!',
+                    balance: body.momoMsg.sofInfo[0].balance
+                }) : resolve({
+                    success: false,
+                    message: body.errorDesc
+                })
+          } catch (err) {
+                await momoModel.findOneAndUpdate({ phone }, { $set: { description: 'SOF_GET_DEFAULT_MONEY| Có lỗi xảy ra ' + err.message || err } })
+                return resolve({
+                    success: false,
+                    message: 'Có lỗi xảy ra ' + err
+                })
+            }
+       })
+   })
 }

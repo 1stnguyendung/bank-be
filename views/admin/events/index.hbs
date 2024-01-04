@@ -1,0 +1,280 @@
+{{>head}}
+
+<body data-pc-preset="preset-1" data-pc-sidebar-theme="dark" data-pc-sidebar-caption="true" data-pc-direction="ltr"
+    data-pc-theme="light">
+    <div class="loader-bg">
+        <div class="pc-loader">
+            <div class="loader-fill"></div>
+        </div>
+    </div>
+    {{>nav}}
+    <div class="pc-container">
+        <div class="pc-content"><!-- [ breadcrumb ] start -->
+            <div class="page-header">
+                <div class="page-block">
+                    <div class="row align-items-center justify-content-between">
+                        <div class="col-sm-auto">
+                            <div class="page-header-title">
+                                <h5 class="mb-0">QUẢN LÝ EVENT</h5>
+                            </div>
+                        </div>
+                        <div class="col-sm-auto">
+                            <ul class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="../navigation/index.html"><i
+                                            class="ph-duotone ph-house"></i></a></li>
+                                <li class="breadcrumb-item"><a href="javascript: void(0)">QUẢN LÝ</a></li>
+                                <li class="breadcrumb-item" aria-current="page">EVENT</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div><!-- [ breadcrumb ] end --><!-- [ Main Content ] start -->
+            <div class="row"><!-- [ sample-page ] start -->
+                <div class="col-sm-12">
+
+                    <div class="row">
+                        <div class="col-md-6 col-xxl-3">
+                            <div class="card price-card">
+                                <div class="card-body price-head bg-light-success">
+                                    <h5 class="text-success">NHIỆM VỤ NGÀY</h5>
+                                    <b class="text-success text-center">{{ numberFormat amountMission }}đ</b>
+                                </div>
+                                <div class="card-body">
+                                    <div class="d-grid">
+                                        <a href="{{ adminPath }}/mission" class="btn btn-success">Cài đặt</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-xxl-3">
+                            <div class="card price-card">
+                                <div class="card-body price-head bg-light-warning">
+                                    <h5 class="text-warning">TOP TUẦN</h5>
+                                    <b class="text-warning text-center">{{ numberFormat amountMission }}đ</b>
+                                </div>
+                                <div class="card-body">
+
+                                    <div class="d-grid"><button class="btn btn-warning">Cài đặt</button></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-xxl-3">
+                            <div class="card price-card">
+                                <div class="card-body price-head bg-light-info">
+                                    <h5 class="text-info">GIFTCODE</h5>
+                                    <b class="text-info text-center">{{ numberFormat amountMission }}đ</b>
+                                </div>
+                                <div class="card-body">
+
+                                    <div class="d-grid">
+                                        <a href="{{ adminPath }}/giftcode" class="btn btn-info">Cài đặt</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-xxl-3">
+                            <div class="card price-card">
+                                <div class="card-body price-head bg-light-secondary">
+                                    <h5 class="text-secondary">VQMM</h5>
+                                    <b class="text-secondary text-center">{{ numberFormat amountMission }}đ</b>
+                                </div>
+                                <div class="card-body">
+
+                                    <div class="d-grid"><button class="btn btn-secondary">Cài đặt</button></div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div><!-- [ sample-page ] end -->
+            </div><!-- [ Main Content ] end -->
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="card table-card card-border-none user-profile-list">
+                        <form>
+                            <div class="row g-4">
+                                <div class="col-md-3">
+                                    <input class="mb-0 form-control form-control-sm" type="text" placeholder="Tìm kiếm">
+                                </div>
+                                <div class="col-md-3">
+                                    <select name="type" class="mb-3 form-select form-select-sm">
+                                        {{#select type }}
+                                        <option value="">Tất Cả</option>
+                                        <option value="mission">Nhiệm vụ ngày</option>
+                                        {{/select}}
+                                    </select>
+                                </div>
+                                <div class="col-md-3">
+                                    <select name="status" class="mb-3 form-select form-select-sm">
+                                        {{#select status }}
+                                        <option value="">Tất Cả</option>
+                                        <option value="wait">Đợi xử lý</option>
+                                        <option value="success">Đã trả</option>
+                                        <option value="error">Lỗi</option>
+                                        {{/select}}
+                                    </select>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group mb-3">
+                                        <button class="btn btn-primary btn-sm w-100">
+                                            <i class="fa fa-search" aria-hidden="true"></i> Tìm
+                                            kiếm</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-striped" id="pc-dt-simple">
+                            <thead>
+                                <th>
+                                    <span data-bs-submit="bank" data-bs-action="add">
+                                        <i class="fa fa-plus-circle" aria-hidden="true"></i>
+                                    </span>
+                                </th>
+                                <th>Số điện thoại</th>
+                                <th>Loại</th>
+                                <th>Tiền nhận {{{ tableSort originalUrl.search 'bonus' _sort }}}</th>
+                                <th>Số tiền đã chơi {{{ tableSort originalUrl.search 'amount' _sort }}}</th>
+                                </th>
+                                <th>Trạng Thái {{{ tableSort originalUrl.search 'status' _sort }}}</th>
+                                </th>
+                                <th>Mô Tả</th>
+                                <th>Cập Nhập {{{ tableSort originalUrl.search 'updatedAt' _sort }}}
+                                </th>
+                                <th>Thời Gian {{{ tableSort originalUrl.search 'createdAt' _sort }}}
+                                </th>
+                            </thead>
+                            <tbody>
+                                {{#each list}}
+                                <tr data-index="{{ this._id }}">
+                                    <td>
+                                        <div class="d-flex gap-2">
+                                            <span class="text-danger" data-row="delete"
+                                                data-id="{{ this._id }}">
+                                                <i class="ti ti-trash f-18" aria-hidden="true"></i>
+                                            </span>
+                                        </div>
+                                    </td>
+                                    <td>{{ this.phone }}</td>
+                                    <td>{{ this.type }}</td>
+                                    <td>{{ numberFormat this.bonus }}</td>
+                                    <td>{{ numberFormat this.amount }}</td>
+                                    <td>{{{ historyStatus this.status }}}</td>
+                                    <td>
+                                        <textarea style="width: 100px;"
+                                            class="form-control">{{ this.description }}</textarea>
+                                    </td>
+                                    <td>{{ formatDate this.updatedAt 'HH:mm:ss DD-MM-YYYY'}}</td>
+                                    <td>{{ formatDate this.createdAt 'HH:mm:ss DD-MM-YYYY'}}</td>
+                                </tr>
+                                {{else}}
+                                <tr>
+                                    <td colspan="24">
+                                        <div class="dm-empty text-center">
+                                            <div class="dm-empty__image">
+                                                <img src="/assets/images/1.png" alt="Rỗng">
+                                            </div>
+                                            <div class="dm-empty__text">
+                                                <p class="">Không có dữ liệu !</p>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                {{/each}}
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="datatable-bottom">
+                        <div class="col-md-2">
+                            <select name="perPage" class="mb-3 form-select form-select-sm"
+                                data-query="{{ checkQuery originalUrl.search 'perPage' }}">
+                                {{#select perPage }}
+                                <option value="10">10/page</option>
+                                <option value="20">20/page</option>
+                                <option value="40">40/page</option>
+                                <option value="60">60/page</option>
+                                <option value="100">100/page</option>
+                                <option value="200">200/page</option>
+                                <option value="500">500/page</option>
+                                {{/select}}
+                            </select>
+                            </select>
+                        </div>
+                        <nav class="datatable-pagination">
+                            <ul class="datatable-pagination-list">
+                                <li class="dm-pagination__item">
+                                    {{#paginate pagination type="previous"}}
+                                    <a href="{{ baseURL }}?{{#if query }}{{ query }}&page={{n}}{{else}}page={{n}}{{/if}}"
+                                        class="datatable-pagination-list-item datatable-hidden datatable-{{#if disabled}}disabled{{/if}}">
+                                        <span class="ti ti-arrow-left"></span>
+                                    </a>
+                                    {{/paginate}}
+                                    {{#paginate pagination type="middle" limit=pagination.limit}}
+                                    <a href="{{ baseURL }}?{{#if query }}{{ query }}&page={{n}}{{else}}page={{n}}{{/if}}"
+                                        class="datatable-pagination-list-item datatable-{{#if active}}active{{/if}}"><span
+                                            class="datatable-pagination-list-item-link">{{n}}</span>
+                                    </a>
+                                    {{/paginate}}
+                                    {{#paginate pagination type="next"}}
+                                    <a href="{{ baseURL }}?{{#if query }}{{ query }}&page={{n}}{{else}}page={{n}}{{/if}}"
+                                        class="datatable-pagination-list-item datatable-hidden datatable-{{#if disabled}}disabled{{/if}}">
+                                        <span class="ti ti-arrow-right"></span>
+                                    </a>
+                                    {{/paginate}}
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {{>foot}}
+
+</body>
+<script>
+    let urlDoamin = '{{urlCurl}}';
+
+    $('body').on('click', 'span[data-row="delete"]', function (e) {
+        var dataId = $(this).data('id');
+
+        Swal.fire({
+            icon: 'info',
+            title: "Bạn chắc chắn muốn xóa #" + dataId + ' không?',
+            showDenyButton: true,
+            confirmButtonText: "Đồng ý",
+            denyButtonText: "Đóng"
+        }).then((result) => {
+            if (result.isConfirmed) {
+
+                let config = {
+                    method: 'post',
+                    maxBodyLength: Infinity,
+                    url: urlDoamin + '/event/delete',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    data: {
+                        id: dataId
+                    }
+                };
+
+                axios.request(config)
+                    .then((response) => {
+                        response.data.status ? swal('Thông báo', response.data.message, 'success') && setTimeout(() => window.location.reload(), 1500) : swal('Thông báo', response.data.message, 'error');
+                    })
+                    .catch((err) => {
+                        swal('Thông Báo', err.message || err, 'error');
+
+                    });
+
+            } else if (result.isDenied) {
+                Swal.fire("Đã hủy thao tác", "", "info");
+            }
+        });
+    });
+</script>
+
+</html>

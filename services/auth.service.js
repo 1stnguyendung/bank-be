@@ -8,7 +8,6 @@ const authService = {
     register: async (name, username, password, ip, level = 0, options) => {
         try {
             let check = await userModel.findOne({ username });
-
             !options && (options = {
                 editHis: Boolean(level), // cho phép chỉnh sửa lịch sử
                 editComment: Boolean(level), // cho phép chỉnh sửa nội dung lịch sử
@@ -81,10 +80,11 @@ const authService = {
             await userModel.findOneAndUpdate({ username }, { $set: { ip, lastOnline: moment().toDate() } })
 
             return ({
-                success: true,
-                message: 'Đăng nhập thành công!',
+                'statusText': 'success',
+                'status': true,
+                'message': 'Đăng nhập thành công!',
                 token
-            })
+            });
         } catch (err) {
             console.log(err);
             return ({

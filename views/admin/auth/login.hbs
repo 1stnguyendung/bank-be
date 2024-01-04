@@ -1,0 +1,59 @@
+{{>head}}
+
+<body data-pc-preset="preset-1" data-pc-sidebar-theme="dark" data-pc-sidebar-caption="true" data-pc-direction="ltr"
+    data-pc-theme="light">
+    <div class="loader-bg">
+        <div class="pc-loader">
+            <div class="loader-fill"></div>
+        </div>
+    </div>
+    <div class="auth-main v1">
+        <div class="bg-overlay bg-white"></div>
+        <div class="auth-wrapper">
+            <div class="auth-form">
+                <a href="/" class="d-block mt-5"></a>
+                <div class="card mb-5 mt-3">
+                    <div class="card-header bg-dark">
+                        <h4 class="text-center text-white f-w-500 mb-0">Đăng nhập tài khoản</h4>
+                    </div>
+                    <div class="card-body">
+                        <form action="#" method="post" id="loginForm">
+                            <div class="form-group mb-3">
+                                <input type="text" class="form-control" name="username"
+                                    placeholder="Nhập tên đăng nhập">
+                            </div>
+                            <div class="form-group mb-3">
+                                <input type="password" class="form-control" name="password" placeholder="Nhập mật khẩu">
+                            </div>
+                            <div class="d-grid mt-4">
+                                <button type="submit" class="btn btn-primary">Đăng nhập</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        let urlDoamin = '{{adminPath}}';
+
+        $('body').on('submit', '#loginForm', function (e) {
+            e.preventDefault();
+            let data = $(this).serialize();
+
+            axios.post(urlDoamin + `/login`, data)
+                .then((result) => {
+                    let res = result.data;
+
+                    res.status ? swal('Thông báo', res.message, 'success') && setTimeout(() => window.location.reload(), 1500) : swal('Thông báo', res.message, 'error');
+
+                })
+                .catch((err) => {
+                    swal('Thông Báo', err.message || err, 'error');
+                })
+        })
+    </script>
+    {{>foot}}
+</body>
+
+</html>

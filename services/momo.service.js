@@ -84,7 +84,7 @@ const momoService = {
                         $match: {
                             status: 'active',
                             loginStatus: 'active',
-                            money: { $gte: amount }
+                            amount: { $gte: amount }
                         }
                     },
                     {
@@ -105,7 +105,7 @@ const momoService = {
                         $match: {
                             status: 'active',
                             loginStatus: 'active',
-                            money: { $gte: amount }
+                            amount: { $gte: amount }
                         }
                     },
                     {

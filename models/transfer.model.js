@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const transferSchema = new mongoose.Schema({
-    transId: Number,
+    transId: String,
     phone: {
         type: String,
         required: true
